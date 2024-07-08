@@ -1,0 +1,39 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Who is your boyfriend?</title>
+    <link rel="stylesheet" href="styles.css">
+</head>
+
+<body>
+    <div id="app">
+        <!-- Landing Page -->
+        <div id="landing-page">
+            <div id="countdown"></div>
+            <button id="start-game" onclick="startGame()">Start Game</button>
+        </div>
+
+        <!-- Game Page -->
+        <div id="game-page" style="display: none;">
+            <div id="question"></div>
+            <div id="options">
+                <img id="option1" onclick="checkAnswer(1)">
+                <img id="option2" onclick="checkAnswer(2)">
+            </div>
+        </div>
+
+        <!-- End Page -->
+        <div id="end-page" style="display: none;">
+            <div id="message"></div>
+            <img id="group-photo">
+            <div id="animation"></div>
+        </div>
+    </div>
+
+    <script src="scripts.js"></script>
+</body>
+
+</html>

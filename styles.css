@@ -1,0 +1,40 @@
+/* styles.css */
+body {
+    font-family: Arial, sans-serif;
+    text-align: center;
+}
+
+#app {
+    margin: 20px;
+}
+
+#countdown,
+#start-game {
+    margin-top: 20px;
+}
+
+#question {
+    font-size: 1.5em;
+    margin: 20px 0;
+}
+
+#options img {
+    width: 100px;
+    height: 100px;
+    margin: 10px;
+    cursor: pointer;
+}
+
+#message {
+    font-size: 1.5em;
+    margin: 20px 0;
+}
+
+#group-photo {
+    width: 200px;
+    height: 200px;
+}
+
+#animation {
+    margin-top: 20px;
+}
