@@ -5,7 +5,9 @@ import (
 	"log"
 	"math/rand"
 	"net/http"
+	"os"
 	"path/filepath"
+	"strings"
 	"time"
 )
 
@@ -16,32 +18,22 @@ type Question struct {
 
 }
 
+type GameData struct {
+	Questions  []Question `json:"questions"`
+	GroupPhoto string     `json:"groupPhoto"`
+}
+
 func main() {
-	http.Handle("/game-data", corsMiddleware(gameDataHandler))
+	apiServer := http.HandlerFunc(gameDataHandler)
+	http.Handle("/game-data", corsMiddleware(apiServer))
 
 	fileServer := http.StripPrefix("/images/", http.FileServer(http.Dir("./images")))
-	http.Handle("/images/", corsMiddleware2(fileServer))
+	http.Handle("/images/", corsMiddleware(fileServer))
 
 	http.ListenAndServe(":8080", nil)
 }
 
-func corsMiddleware(next func(w http.ResponseWriter, r *http.Request)) http.Handler {
-	return http.HandlerFunc(func(w http.ResponseWriter, r *http.Request) {
-		w.Header().Set("Access-Control-Allow-Origin", "*")
-		w.Header().Set("Access-Control-Allow-Methods", "GET, POST, OPTIONS")
-		w.Header().Set("Access-Control-Allow-Headers", "Content-Type")
-
-		// Handle preflight requests
-		if r.Method == http.MethodOptions {
-			w.WriteHeader(http.StatusOK)
-			return
-		}
-
-		next(w, r)
-	})
-}
-
-func corsMiddleware2(next http.Handler) http.Handler {
+func corsMiddleware(next http.Handler) http.Handler {
 	return http.HandlerFunc(func(w http.ResponseWriter, r *http.Request) {
 		w.Header().Set("Access-Control-Allow-Origin", "*")
 		w.Header().Set("Access-Control-Allow-Methods", "GET, POST, OPTIONS")
@@ -56,6 +48,7 @@ func corsMiddleware2(next http.Handler) http.Handler {
 		next.ServeHTTP(w, r)
 	})
 }
+
 func gameDataHandler(w http.ResponseWriter, r *http.Request) {
 	youImages, err := loadImages("images/you")
 	if err != nil {
@@ -71,10 +64,17 @@ func gameDataHandler(w http.ResponseWriter, r *http.Request) {
 		return
 	}
 
+	groupPhotos, err := loadImages("images/groups")
+	if err != nil {
+		http.Error(w, "Could not read group images", http.StatusInternalServerError)
+		log.Println("Error reading group images:", err)
+		return
+	}
+
 	// Check if there are enough images
-	if len(youImages) < 5 || len(celebrityImages) < 5 {
+	if len(youImages) < 5 || len(celebrityImages) < 5 || len(groupPhotos) == 0 {
 		http.Error(w, "Not enough images to create questions", http.StatusInternalServerError)
-		log.Println("Not enough images. You:", len(youImages), "Celebrities:", len(celebrityImages))
+		log.Println("Not enough images. You:", len(youImages), "Celebrities:", len(celebrityImages), "Groups:", len(groupPhotos))
 		return
 	}
 
@@ -101,21 +101,40 @@ func gameDataHandler(w http.ResponseWriter, r *http.Request) {
 		}
 	}
 
+	// Select a random group photo
+	randomGroupPhoto := groupPhotos[rand.Intn(len(groupPhotos))]
+
+	gameData := GameData{
+		Questions:  questions,
+		GroupPhoto: "/" + randomGroupPhoto,
+	}
+
 	w.Header().Set("Content-Type", "application/json")
-	json.NewEncoder(w).Encode(questions)
+	if err := json.NewEncoder(w).Encode(gameData); err != nil {
+		http.Error(w, "Could not encode game data", http.StatusInternalServerError)
+		log.Println("Error encoding game data:", err)
+	}
 }
 
 func loadImages(path string) ([]string, error) {
-	jpgImages, err := filepath.Glob(filepath.Join(path, "*.jpg"))
+	var images []string
+	extensions := map[string]bool{".jpg": true, ".jpeg": true, ".png": true, ".gif": true, ".webp": true}
+
+	err := filepath.Walk(path, func(path string, info os.FileInfo, err error) error {
+		if err != nil {
+			return err
+		}
+		if !info.IsDir() {
+			ext := strings.ToLower(filepath.Ext(info.Name()))
+			if extensions[ext] {
+				images = append(images, path)
+			}
+		}
+		return nil
+	})
 	if err != nil {
 		return nil, err
 	}
 
-	jpegImages, err := filepath.Glob(filepath.Join(path, "*.jpeg"))
-	if err != nil {
-		return nil, err
-	}
-
-	images := append(jpgImages, jpegImages...)
 	return images, nil
 }
