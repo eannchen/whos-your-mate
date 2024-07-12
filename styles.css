@@ -46,9 +46,22 @@ button.btn-secondary:hover {
     border-color: #545b62;
 }
 
+#options {
+    display: flex;
+    flex-direction: column;
+    justify-content: space-around;
+}
+
+.option-wrapper {
+    display: flex;
+}
+
 #options img {
-    width: 150px;
-    height: 150px;
+    width: 30vh;
+    /* Adjust width to fit within the viewport */
+    height: 30vh;
+    /* Ensure height is the same as width */
+    object-fit: cover;
     border-radius: 50%;
     box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
     cursor: pointer;
@@ -60,9 +73,7 @@ button.btn-secondary:hover {
 }
 
 #message {
-    font-size: 1.5em;
-    font-weight: bold;
-    color: #ff69b4;
+    font-size: 1em;
 }
 
 #error-message {
@@ -71,14 +82,14 @@ button.btn-secondary:hover {
 
 @media (min-width: 768px) {
     #options img {
-        width: 200px;
-        height: 200px;
+        width: 80%;
+        height: auto;
     }
 }
 
 @media (min-width: 992px) {
     #options img {
-        width: 250px;
-        height: 250px;
+        width: 80%;
+        height: auto;
     }
 }

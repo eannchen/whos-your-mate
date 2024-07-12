@@ -64,21 +64,45 @@ function checkAnswer(gameData, currentQuestion, selectedOption) {
     }
 }
 
+const wishLines = [
+    "Happy birthday to the one who's miles away but close to my heart. Wishing you a day filled with joy and love, even from afar.",
+    "Distance may separate us physically, but our love knows no bounds. Happy birthday!",
+    "Even though we're apart, my heart is with you every step of the way. Happy birthday, my dear.",
+    "Distance may test us, but it can't diminish the love we share. Happy birthday!",
+    "Wishing a very happy birthday to the love of my life. Though we may be separated by miles, our love binds us together.",
+    "Happy birthday! Distance may be tough, but it's no match for the love we share.",
+    "Happy birthday to my incredible partner. Here's to making every moment count when we're together again.",
+    "Distance means so little when someone means so much. Happy birthday, my love.",
+    "As long as we're under the same moon, I'll feel close to you. Happy birthday!",
+    "No matter the miles that separate us, you're always with me in spirit. Happy birthday, sweetheart."
+];
+
 function endGame(gameData, won) {
     document.getElementById('game-page').classList.add('d-none');
     document.getElementById('end-page').classList.remove('d-none');
+    const gameTitle = document.getElementById('game-title');
+
+    // Select a random wish line
+    const randomWishLine = wishLines[Math.floor(Math.random() * wishLines.length)];
+
     if (won) {
-        document.getElementById('message').textContent = 'Happy Birthday! 🎂';
+        gameTitle.textContent = 'Happy Birthday 🎂';
+        document.getElementById('message').textContent = randomWishLine;
         document.getElementById('group-photo').src = gameData.groupPhoto;
+        document.getElementById('message').classList.remove('d-none');
+        document.getElementById('group-photo').classList.remove('d-none');
         // Add cake emoji animation
     } else {
-        document.getElementById('message').textContent = 'Oops! 💩';
+        gameTitle.textContent = 'Oops! 💩';
+        document.getElementById('message').classList.add('d-none');
+        document.getElementById('group-photo').classList.add('d-none');
         // Add poo emoji animation
     }
 }
 
 
 function backToStart() {
+    document.getElementById('game-title').textContent = 'Who is your boyfriend?';
     document.getElementById('end-page').classList.add('d-none');
     document.getElementById('landing-page').classList.remove('d-none');
 }

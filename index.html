@@ -29,8 +29,12 @@
         <div id="game-page" class="d-none my-5">
             <div id="question" class="mb-4"></div>
             <div id="options" class="d-flex justify-content-center">
-                <img id="option1" class="img-fluid m-2" onclick="checkAnswer(1)">
-                <img id="option2" class="img-fluid m-2" onclick="checkAnswer(2)">
+                <div class="option-wrapper d-flex justify-content-end">
+                    <img id="option1" class="img-fluid m-2" onclick="checkAnswer(1)">
+                </div>
+                <div class="option-wrapper d-flex justify-content-start">
+                    <img id="option2" class="img-fluid m-2" onclick="checkAnswer(2)">
+                </div>
             </div>
         </div>
 
