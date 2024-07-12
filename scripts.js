@@ -1,5 +1,3 @@
-// scripts.js
-
 const APIUrl = 'http://127.0.0.1:8080'
 
 document.addEventListener('DOMContentLoaded', () => {
@@ -33,18 +31,17 @@ function checkBirthday() {
 
 async function startGame() {
     try {
-        document.getElementById('landing-page').style.display = 'none';
-        document.getElementById('game-page').style.display = 'block';
+        document.getElementById('landing-page').classList.add('d-none');
+        document.getElementById('game-page').classList.remove('d-none');
 
         const gameData = await fetchGameData();
         loadQuestion(gameData, 0);
     } catch (error) {
-        document.getElementById('landing-page').style.display = 'block';
-        document.getElementById('game-page').style.display = 'none';
+        document.getElementById('landing-page').classList.remove('d-none');
+        document.getElementById('game-page').classList.add('d-none');
         document.getElementById('error-message').textContent = 'Error loading game data. Please try again later.';
     }
 }
-
 
 function loadQuestion(gameData, currentQuestion) {
     if (currentQuestion < gameData.questions.length) {
@@ -67,10 +64,9 @@ function checkAnswer(gameData, currentQuestion, selectedOption) {
     }
 }
 
-
 function endGame(gameData, won) {
-    document.getElementById('game-page').style.display = 'none';
-    document.getElementById('end-page').style.display = 'block';
+    document.getElementById('game-page').classList.add('d-none');
+    document.getElementById('end-page').classList.remove('d-none');
     if (won) {
         document.getElementById('message').textContent = 'Happy Birthday! 🎂';
         document.getElementById('group-photo').src = gameData.groupPhoto;
@@ -79,4 +75,10 @@ function endGame(gameData, won) {
         document.getElementById('message').textContent = 'Oops! 💩';
         // Add poo emoji animation
     }
+}
+
+
+function backToStart() {
+    document.getElementById('end-page').classList.add('d-none');
+    document.getElementById('landing-page').classList.remove('d-none');
 }
