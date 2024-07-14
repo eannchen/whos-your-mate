@@ -80,6 +80,9 @@ const wishLines = [
 function endGame(gameData, won) {
     document.getElementById('game-page').classList.add('d-none');
     document.getElementById('end-page').classList.remove('d-none');
+    document.getElementById('option1').removeAttribute("src");
+    document.getElementById('option2').removeAttribute("src");
+
     const gameTitle = document.getElementById('game-title');
 
     // Select a random wish line
