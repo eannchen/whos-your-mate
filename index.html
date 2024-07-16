@@ -20,9 +20,10 @@
 
         <!-- Landing Page -->
         <div id="landing-page" class="my-5 d-flex flex-column align-items-center justify-content-center">
-            <div id="countdown" class="mb-3"></div>
-            <button id="start-game" class="btn btn-primary btn-lg" onclick="startGame()">Start Game</button>
+            <div id="countdown"></div>
+            <button id="start-game" class="btn btn-primary btn-lg d-none" onclick="startGame()">Start Game</button>
             <div id="error-message" class="text-danger mt-3"></div>
+            <div id="animation"></div>
         </div>
 
         <!-- Game Page -->
@@ -42,12 +43,12 @@
         <div id="end-page" class="d-none my-5">
             <div id="message" class="mb-4"></div>
             <img id="group-photo" class="img-fluid mb-4">
-            <div id="animation"></div>
             <button id="back-to-start" class="btn btn-secondary btn-lg" onclick="backToStart()">Back to Start</button>
         </div>
     </div>
 
     <script src="scripts.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/canvas-confetti@1.5.1/dist/confetti.browser.min.js"></script>
 </body>
 
 </html>

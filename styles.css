@@ -16,6 +16,12 @@ body {
     margin-top: 20px;
 }
 
+#countdown {
+    font-size: 1.5em;
+    margin-bottom: 220px;
+    text-shadow: 2px 2px 4px rgba(0, 0, 0, 0.1);
+}
+
 h1#game-title {
     font-size: 2.5em;
     color: #ff69b4;
@@ -57,9 +63,9 @@ button.btn-secondary:hover {
 }
 
 #options img {
-    width: 30vh;
+    width: 32vh;
     /* Adjust width to fit within the viewport */
-    height: 30vh;
+    height: 32vh;
     /* Ensure height is the same as width */
     object-fit: cover;
     border-radius: 50%;
@@ -91,5 +97,59 @@ button.btn-secondary:hover {
     #options img {
         width: 80%;
         height: auto;
+    }
+}
+
+#animation .heart {
+    position: absolute;
+    bottom: 0;
+    width: 50px;
+    height: 50px;
+    background-color: #ff69b4;
+    transform: rotate(-45deg);
+    animation: float 6s ease-in-out infinite;
+}
+
+#animation .heart {
+    position: absolute;
+    bottom: 0;
+    width: 50px;
+    height: 50px;
+    background-color: #ff69b4;
+    transform: rotate(-45deg);
+    animation: float 6s ease-in-out infinite;
+}
+
+#animation .heart:before,
+#animation .heart:after {
+    content: "";
+    position: absolute;
+    width: 50px;
+    height: 50px;
+    background-color: #ff69b4;
+    border-radius: 50%;
+}
+
+#animation .heart:before {
+    top: -25px;
+    left: 0;
+}
+
+#animation .heart:after {
+    top: 0;
+    left: 25px;
+}
+
+@keyframes float {
+    0% {
+        transform: translateY(0) rotate(-45deg);
+    }
+
+    50% {
+        transform: translateY(-200px) rotate(-45deg);
+    }
+
+    100% {
+        transform: translateY(0) rotate(-45deg);
     }
 }

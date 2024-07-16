@@ -2,6 +2,7 @@ const APIUrl = 'http://127.0.0.1:8080'
 
 document.addEventListener('DOMContentLoaded', () => {
     checkBirthday();
+    startHeartAnimation(); // Start heart animation on the landing page
 });
 
 async function fetchGameData() {
@@ -14,28 +15,41 @@ async function fetchGameData() {
 }
 
 function checkBirthday() {
-    const birthday = new Date('2024-07-10'); // Replace with the actual birthday
-    const today = new Date();
+    const birthday = new Date('2024-07-10T00:00:00'); // Replace with the actual birthday
     const countdownElement = document.getElementById('countdown');
     const startGameButton = document.getElementById('start-game');
 
-    if (today < birthday) {
-        const daysLeft = Math.ceil((birthday - today) / (1000 * 60 * 60 * 24));
-        countdownElement.textContent = `${daysLeft} days until her birthday!`;
-        startGameButton.style.display = 'none';
-    } else {
-        countdownElement.style.display = 'none';
-        startGameButton.style.display = 'block';
+    function updateCountdown() {
+        const now = new Date();
+        const timeLeft = birthday - now;
+
+        if (timeLeft <= 0) {
+            countdownElement.classList.add('d-none');
+            startGameButton.classList.remove('d-none');
+            clearInterval(countdownInterval); // Stop the interval when the countdown ends
+        } else {
+            const days = Math.floor(timeLeft / (1000 * 60 * 60 * 24));
+            const hours = Math.floor((timeLeft % (1000 * 60 * 60 * 24)) / (1000 * 60 * 60));
+            const minutes = Math.floor((timeLeft % (1000 * 60 * 60)) / (1000 * 60));
+            const seconds = Math.floor((timeLeft % (1000 * 60)) / 1000);
+
+            countdownElement.textContent = `Only ${days}d, ${hours}h, ${minutes}m, and ${seconds}s until Sonnie's special day!`;
+        }
     }
+
+    // Initial call to set the countdown immediately
+    updateCountdown();
+    // Update the countdown every second
+    const countdownInterval = setInterval(updateCountdown, 1000);
 }
+
 
 async function startGame() {
     try {
-        document.getElementById('landing-page').classList.add('d-none');
-        document.getElementById('game-page').classList.remove('d-none');
-
         const gameData = await fetchGameData();
         loadQuestion(gameData, 0);
+        document.getElementById('landing-page').classList.add('d-none');
+        document.getElementById('game-page').classList.remove('d-none');
     } catch (error) {
         document.getElementById('landing-page').classList.remove('d-none');
         document.getElementById('game-page').classList.add('d-none');
@@ -94,12 +108,11 @@ function endGame(gameData, won) {
         document.getElementById('group-photo').src = gameData.groupPhoto;
         document.getElementById('message').classList.remove('d-none');
         document.getElementById('group-photo').classList.remove('d-none');
-        // Add cake emoji animation
+        startConfettiAnimation();
     } else {
         gameTitle.textContent = 'Oops! 💩';
         document.getElementById('message').classList.add('d-none');
         document.getElementById('group-photo').classList.add('d-none');
-        // Add poo emoji animation
     }
 }
 
@@ -108,4 +121,41 @@ function backToStart() {
     document.getElementById('game-title').textContent = 'Who is your boyfriend?';
     document.getElementById('end-page').classList.add('d-none');
     document.getElementById('landing-page').classList.remove('d-none');
+}
+
+function startConfettiAnimation() {
+    const duration = 1.2 * 1000;
+    const end = Date.now() + duration;
+
+    (function frame() {
+        confetti({
+            particleCount: 3,
+            angle: 60,
+            spread: 55,
+            origin: { x: 0 }
+        });
+        confetti({
+            particleCount: 3,
+            angle: 120,
+            spread: 55,
+            origin: { x: 1 }
+        });
+
+        if (Date.now() < end) {
+            requestAnimationFrame(frame);
+        }
+    }());
+}
+
+function startHeartAnimation() {
+    const animationElement = document.getElementById('animation');
+    animationElement.innerHTML = ''; // Clear previous hearts
+
+    for (let i = 0; i < 10; i++) {
+        const heart = document.createElement('div');
+        heart.className = 'heart';
+        heart.style.left = `${Math.random() * 90}%`;
+        heart.style.animationDuration = `${Math.random() * 2 + 4}s`;
+        animationElement.appendChild(heart);
+    }
 }
