@@ -1,0 +1,13 @@
+version: '3.8'
+services:
+  app:
+    container_name: whos-your-mate-app
+    image: whos-your-mate-app:latest
+    pull_policy: never
+    platform: linux/amd64
+    restart: always
+    logging:
+      driver: 'json-file'
+      options:
+        max-size: '100m'
+        max-file: '10'
