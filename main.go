@@ -24,13 +24,16 @@ type GameData struct {
 }
 
 func main() {
+	fileServer := http.FileServer(http.Dir("./static"))
+	http.Handle("/", fileServer)
+
+	imageServer := http.StripPrefix("/images/", http.FileServer(http.Dir("./images")))
+	http.Handle("/images/", corsMiddleware(imageServer))
+
 	apiServer := http.HandlerFunc(gameDataHandler)
 	http.Handle("/game-data", corsMiddleware(apiServer))
 
-	fileServer := http.StripPrefix("/images/", http.FileServer(http.Dir("./images")))
-	http.Handle("/images/", corsMiddleware(fileServer))
-
-	http.ListenAndServe(":8080", nil)
+	http.ListenAndServe(":80", nil)
 }
 
 func corsMiddleware(next http.Handler) http.Handler {

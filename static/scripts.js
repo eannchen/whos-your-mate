@@ -1,4 +1,4 @@
-const APIUrl = 'http://127.0.0.1:8080'
+const APIUrl = ''
 
 document.addEventListener('DOMContentLoaded', () => {
     startHeartAnimation();
@@ -15,7 +15,7 @@ async function fetchGameData() {
 }
 
 function checkBirthday() {
-    const birthday = new Date('2024-07-21T00:00:00'); // Replace with the actual birthday
+    const birthday = new Date('2024-07-17T17:01:00'); // Replace with the actual birthday
     const countdownElement = document.getElementById('countdown');
     const startGameButton = document.getElementById('start-game');
 
