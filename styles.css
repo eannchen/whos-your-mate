@@ -1,6 +1,6 @@
 body {
     font-family: 'Raleway', sans-serif;
-    background-color: #f0f8ff;
+    background-color: #e0effb;
     /* Light blue background */
     color: #333;
     display: flex;
@@ -16,9 +16,14 @@ body {
     margin-top: 20px;
 }
 
+#footer {
+    position: relative;
+    bottom: 1%;
+    font-size: 1em;
+}
+
 #countdown {
     font-size: 1.5em;
-    margin-bottom: 220px;
     text-shadow: 2px 2px 4px rgba(0, 0, 0, 0.1);
 }
 
@@ -100,14 +105,12 @@ button.btn-secondary:hover {
     }
 }
 
-#animation .heart {
+#animation {
     position: absolute;
-    bottom: 0;
-    width: 50px;
-    height: 50px;
-    background-color: #ff69b4;
-    transform: rotate(-45deg);
-    animation: float 6s ease-in-out infinite;
+    top: 31.5%;
+    width: 100%;
+    height: 200px;
+    pointer-events: none;
 }
 
 #animation .heart {
@@ -115,7 +118,6 @@ button.btn-secondary:hover {
     bottom: 0;
     width: 50px;
     height: 50px;
-    background-color: #ff69b4;
     transform: rotate(-45deg);
     animation: float 6s ease-in-out infinite;
 }
@@ -126,7 +128,7 @@ button.btn-secondary:hover {
     position: absolute;
     width: 50px;
     height: 50px;
-    background-color: #ff69b4;
+    background-color: inherit;
     border-radius: 50%;
 }
 

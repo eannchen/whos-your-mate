@@ -1,8 +1,8 @@
 const APIUrl = 'http://127.0.0.1:8080'
 
 document.addEventListener('DOMContentLoaded', () => {
+    startHeartAnimation();
     checkBirthday();
-    startHeartAnimation(); // Start heart animation on the landing page
 });
 
 async function fetchGameData() {
@@ -15,9 +15,15 @@ async function fetchGameData() {
 }
 
 function checkBirthday() {
-    const birthday = new Date('2024-07-10T00:00:00'); // Replace with the actual birthday
+    const birthday = new Date('2024-07-21T00:00:00'); // Replace with the actual birthday
     const countdownElement = document.getElementById('countdown');
     const startGameButton = document.getElementById('start-game');
+
+    // Update the countdown every second
+    const countdownInterval = setInterval(updateCountdown, 1000);
+
+    // Initial call to set the countdown immediately
+    updateCountdown();
 
     function updateCountdown() {
         const now = new Date();
@@ -36,11 +42,6 @@ function checkBirthday() {
             countdownElement.textContent = `Only ${days}d, ${hours}h, ${minutes}m, and ${seconds}s until Sonnie's special day!`;
         }
     }
-
-    // Initial call to set the countdown immediately
-    updateCountdown();
-    // Update the countdown every second
-    const countdownInterval = setInterval(updateCountdown, 1000);
 }
 
 
@@ -109,6 +110,8 @@ function endGame(gameData, won) {
         document.getElementById('message').classList.remove('d-none');
         document.getElementById('group-photo').classList.remove('d-none');
         startConfettiAnimation();
+        // const winAudio = document.getElementById('win-audio'); // Get the audio element
+        // winAudio.play(); // Play the romantic song
     } else {
         gameTitle.textContent = 'Oops! 💩';
         document.getElementById('message').classList.add('d-none');
@@ -148,14 +151,17 @@ function startConfettiAnimation() {
 }
 
 function startHeartAnimation() {
-    const animationElement = document.getElementById('animation');
+    const animationElement = document.getElementById('animation'); // Updated ID
     animationElement.innerHTML = ''; // Clear previous hearts
 
     for (let i = 0; i < 10; i++) {
         const heart = document.createElement('div');
         heart.className = 'heart';
-        heart.style.left = `${Math.random() * 90}%`;
+        heart.style.left = `${i * 10}%`; // Ensure hearts are centered
         heart.style.animationDuration = `${Math.random() * 2 + 4}s`;
+        const isBlack = Math.random() < 0.5;
+        heart.style.backgroundColor = isBlack ? 'black' : 'white'; // Randomly assign black or white color
+        heart.style.opacity = isBlack ? '0.7' : '0.8'; // Set opacity based on color
         animationElement.appendChild(heart);
     }
 }
