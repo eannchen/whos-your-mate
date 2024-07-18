@@ -6,6 +6,8 @@ services:
     pull_policy: never
     platform: linux/amd64
     restart: always
+    ports:
+      - '80:80'
     logging:
       driver: 'json-file'
       options:

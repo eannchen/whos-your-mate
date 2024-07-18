@@ -1,4 +1,4 @@
-FROM golang:1.22.3-alpine3.20 AS builder
+FROM golang:1.22.4-alpine3.20 AS builder
 
 WORKDIR /app
 
@@ -16,8 +16,8 @@ RUN set -eux; \
 WORKDIR /app
 
 COPY --from=builder /app/app .
-COPY static .
-COPY images .
+COPY static static
+COPY images images
 
 CMD ls -al && ./app
 EXPOSE 80
