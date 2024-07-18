@@ -25,12 +25,15 @@ body {
 #countdown {
     font-size: 1.5em;
     text-shadow: 2px 2px 4px rgba(0, 0, 0, 0.1);
+    z-index: 20;
 }
 
 h1#game-title {
     font-size: 2.5em;
     color: #ff69b4;
     text-align: center;
+    position: relative;
+    z-index: 20;
 }
 
 #landing-page {
@@ -40,6 +43,7 @@ h1#game-title {
 button.btn-primary {
     background-color: #ff69b4;
     border-color: #ff69b4;
+    z-index: 20;
 }
 
 button.btn-primary:hover {
@@ -111,6 +115,7 @@ button.btn-secondary:hover {
     width: 100%;
     height: 200px;
     pointer-events: none;
+    z-index: 0;
 }
 
 #animation .heart {

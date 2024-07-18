@@ -15,7 +15,7 @@ async function fetchGameData() {
 }
 
 function checkBirthday() {
-    const birthday = new Date('2024-07-17T17:01:00'); // Replace with the actual birthday
+    const birthday = new Date('2024-07-21T17:01:00'); // Replace with the actual birthday
     const countdownElement = document.getElementById('countdown');
     const startGameButton = document.getElementById('start-game');
 
