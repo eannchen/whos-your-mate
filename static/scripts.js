@@ -9,7 +9,7 @@ document.addEventListener('DOMContentLoaded', () => {
 });
 
 function checkBirthday() {
-    const birthday = new Date('2024-07-10T17:01:00'); // Replace with the actual birthday
+    const birthday = new Date('2024-07-21T12:00:00'); // Replace with the actual birthday
     const countdownElement = document.getElementById('countdown');
     const startGameButton = document.getElementById('start-game');
 
