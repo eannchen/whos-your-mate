@@ -1,21 +1,15 @@
-const APIUrl = ''
+const APIUrl = 'http://127.0.0.1:80'
+
+let password = ''; // Global variable to store the password
+
 
 document.addEventListener('DOMContentLoaded', () => {
     startHeartAnimation();
     checkBirthday();
 });
 
-async function fetchGameData() {
-    const response = await fetch(APIUrl + '/game-data');
-    if (!response.ok) {
-        throw new Error('Network response was not ok');
-    }
-    const gameData = await response.json();
-    return gameData;
-}
-
 function checkBirthday() {
-    const birthday = new Date('2024-07-21T17:01:00'); // Replace with the actual birthday
+    const birthday = new Date('2024-07-10T17:01:00'); // Replace with the actual birthday
     const countdownElement = document.getElementById('countdown');
     const startGameButton = document.getElementById('start-game');
 
@@ -44,6 +38,32 @@ function checkBirthday() {
     }
 }
 
+async function fetchGameData() {
+    const response = await fetch(APIUrl + '/game-data', {
+        headers: {
+            'Authorization': password
+        }
+    });
+    if (!response.ok) {
+        throw new Error('Network response was not ok');
+    }
+    const gameData = await response.json();
+    return gameData;
+}
+
+function showPasswordInput() {
+    document.getElementById('password').classList.remove('d-none');
+    document.getElementById('password-button').classList.remove('d-none');
+
+    document.getElementById('start-game').classList.add('d-none');
+}
+
+function setPassword() {
+    const passwordInput = document.getElementById('password');
+    password = passwordInput.value;
+    startGame();
+}
+
 
 async function startGame() {
     try {
@@ -51,10 +71,16 @@ async function startGame() {
         loadQuestion(gameData, 0);
         document.getElementById('landing-page').classList.add('d-none');
         document.getElementById('game-page').classList.remove('d-none');
+
+        // reset state
+        document.getElementById('password').classList.add('d-none');
+        document.getElementById('password-button').classList.add('d-none');
+
+        document.getElementById('start-game').classList.remove('d-none');
     } catch (error) {
         document.getElementById('landing-page').classList.remove('d-none');
         document.getElementById('game-page').classList.add('d-none');
-        document.getElementById('error-message').textContent = 'Error loading game data. Please try again later.';
+        document.getElementById('error-message').textContent = 'Error loading game data. The password might be wrong!';
     }
 }
 

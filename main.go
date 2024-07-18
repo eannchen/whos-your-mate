@@ -41,6 +41,7 @@ func corsMiddleware(next http.Handler) http.Handler {
 		w.Header().Set("Access-Control-Allow-Origin", "*")
 		w.Header().Set("Access-Control-Allow-Methods", "GET, POST, OPTIONS")
 		w.Header().Set("Access-Control-Allow-Headers", "Content-Type")
+		w.Header().Set("Access-Control-Allow-Headers", "Authorization")
 
 		// Handle preflight requests
 		if r.Method == http.MethodOptions {
@@ -53,6 +54,12 @@ func corsMiddleware(next http.Handler) http.Handler {
 }
 
 func gameDataHandler(w http.ResponseWriter, r *http.Request) {
+
+	if r.Header.Get("Authorization") != "sonnie0721" {
+		http.Error(w, "Unauthorized", http.StatusUnauthorized)
+		return
+	}
+
 	youImages, err := loadImages("images/you")
 	if err != nil {
 		http.Error(w, "Could not read your images", http.StatusInternalServerError)

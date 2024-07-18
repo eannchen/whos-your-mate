@@ -21,9 +21,13 @@
         <!-- Landing Page -->
         <div id="landing-page" class="my-5 d-flex flex-column align-items-center justify-content-center">
             <div id="countdown"></div>
-            <button id="start-game" class="btn btn-primary btn-lg d-none" onclick="startGame()">Start Game</button>
-            <div id="error-message" class="text-danger mt-3"></div>
             <div id="animation"></div>
+            <div id="error-message" class="text-danger mt-3"></div>
+            <!-- Start Game Button-->
+            <button id="start-game" class="btn btn-primary btn-lg" onclick="showPasswordInput()">Start Game</button>
+            <!-- Password Input -->
+            <input id="password" class="form-control mb-3 d-none" type="password" placeholder="Enter password">
+            <button id="password-button" class="btn btn-primary btn-lg d-none" onclick="setPassword()">Submit</button>
         </div>
 
         <!-- Game Page -->
