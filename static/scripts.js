@@ -86,20 +86,24 @@ async function startGame() {
         showLoadingPage(); // Show loading page
         const gameData = await fetchGameData();
         await loadQuestion(gameData, 0);
+        hideLoadingPage(); // Hide loading page
+
         document.getElementById('landing-page').classList.add('d-none');
         document.getElementById('game-page').classList.remove('d-none');
 
         // reset state
         document.getElementById('password').classList.add('d-none');
         document.getElementById('password-button').classList.add('d-none');
-        hideLoadingPage(); // Hide loading page
 
         document.getElementById('start-game').classList.remove('d-none');
     } catch (error) {
+        hideLoadingPage(); // Hide loading page
+
         document.getElementById('landing-page').classList.remove('d-none');
         document.getElementById('game-page').classList.add('d-none');
         document.getElementById('error-message').textContent = 'Error loading game data. The password might be wrong!';
     }
+
 }
 
 function showLoadingPage() {
@@ -119,7 +123,7 @@ const loadingTexts = [
     "Getting things ready just for you...",
     "Almost there, stay tuned!",
     "Fetching some awesomeness...",
-    "Loading... the best things come to those who wait!",
+    "The best things come to those who wait!",
     "Making sure everything is perfect...",
     "Good things take time, almost done!",
     "Hold on, sprinkling some magic dust...",
@@ -133,7 +137,7 @@ function getRandomLoadingText() {
 
 async function loadQuestion(gameData, currentQuestion) {
     if (currentQuestion == 0) {
-        await sleep(1000);  // Sleep for 2 seconds
+        await sleep(1000);
     }
     if (currentQuestion < gameData.questions.length) {
         const question = gameData.questions[currentQuestion];
