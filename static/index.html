@@ -15,14 +15,12 @@
 </head>
 
 <body>
-    <div id="app" class="container text-center">
-        <h1 id="game-title" class="my-4">Who is your boyfriend?</h1>
+    <section id="app" class="container text-center">
+        <h1 id="game-title" class="my-4">Who's your boyfriend?</h1>
 
         <!-- Loading Overlay -->
         <div id="loading-overlay" class="d-none">
-            <div class="spinner-border text-primary" role="status">
-                <!-- <span class="sr-only">Loading...</span> -->
-            </div>
+            <div class="spinner-border text-primary" role="status"></div>
             <p id="loading-text">Loading... Please wait a moment!</p>
         </div>
 
@@ -30,13 +28,17 @@
         <div id="landing-page" class="my-5 d-flex flex-column align-items-center justify-content-center">
             <div id="countdown"></div>
             <div id="animation"></div>
-            <div id="error-message" class="text-danger mt-3"></div>
-            <!-- Start Game Button-->
-            <button id="start-game" class="btn btn-primary btn-lg d-none" onclick="showPasswordInput()">Start
-                Game</button>
+            <!-- Start Game-->
+            <div id="start-game" class="d-none">
+                <button class="btn btn-primary btn-lg" onclick="ShowPasswordInput()">Start
+                    Game</button>
+            </div>
             <!-- Password Input -->
-            <input id="password" class="form-control mb-3 d-none" type="password" placeholder="Enter password">
-            <button id="password-button" class="btn btn-primary btn-lg d-none" onclick="setPassword()">Submit</button>
+            <div id="password" class="d-none">
+                <div id="error-message" class="text-danger mt-3"></div>
+                <input id="password-input" class="form-control mb-3" type="password" placeholder="Enter password">
+                <button class="btn btn-primary btn-lg" onclick="SetPassword()">Submit</button>
+            </div>
         </div>
 
         <!-- Game Page -->
@@ -44,10 +46,10 @@
             <div id="question" class="mb-4"></div>
             <div id="options" class="d-flex justify-content-center">
                 <div class="option-wrapper d-flex justify-content-end">
-                    <img id="option1" class="m-2" onclick="checkAnswer(1)">
+                    <img id="option1" class="m-2">
                 </div>
                 <div class="option-wrapper d-flex justify-content-start">
-                    <img id="option2" class="m-2" onclick="checkAnswer(2)">
+                    <img id="option2" class="m-2">
                 </div>
             </div>
         </div>
@@ -56,14 +58,16 @@
         <div id="end-page" class="d-none my-5">
             <div id="message" class="mb-4"></div>
             <img id="group-photo" class="mb-4">
-            <button id="back-to-start" class="btn btn-secondary btn-lg" onclick="backToStart()">Back to Start</button>
+            <button id="back-to-start" class="btn btn-secondary btn-lg" onclick="PageEnd2PageLoading()">Back to
+                Start</button>
         </div>
 
         <p id="footer" class="text-center">Made with 💖 by Ian</p>
 
         <!-- Hidden container to preload images -->
         <div id="preload-images" class="d-none"></div>
-    </div>
+    </section>
+    <script src="variables.js"></script>
     <script src="scripts.js"></script>
     <script src="https://cdn.jsdelivr.net/npm/canvas-confetti@1.5.1/dist/confetti.browser.min.js"></script>
 </body>

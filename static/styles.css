@@ -12,6 +12,11 @@ body {
     overflow-x: hidden;
 }
 
+img {
+    max-width: 80vw;
+    height: auto;
+}
+
 #app {
     max-width: 500px;
     max-height: 100vh;
@@ -24,18 +29,71 @@ body {
     font-size: 1em;
 }
 
-#countdown {
+#landing-page #countdown {
     font-size: 1.5em;
     text-shadow: 2px 2px 4px rgba(0, 0, 0, 0.1);
     z-index: 20;
 }
 
-#password {
+#landing-page #password {
+    width: 100%;
     z-index: 20;
 }
 
-#password-button {
-    z-index: 20;
+#landing-page #password #error-message {
+    font-size: 1.1em;
+}
+
+#landing-page #animation {
+    position: absolute;
+    top: 31.5%;
+    width: 100%;
+    height: 200px;
+    pointer-events: none;
+    z-index: 0;
+}
+
+#landing-page #animation .heart {
+    position: absolute;
+    bottom: 0;
+    width: 50px;
+    height: 50px;
+    transform: rotate(-45deg);
+    animation: float 6s ease-in-out infinite;
+}
+
+#landing-page #animation .heart:before,
+#landing-page #animation .heart:after {
+    content: "";
+    position: absolute;
+    width: 50px;
+    height: 50px;
+    background-color: inherit;
+    border-radius: 50%;
+}
+
+#landing-page #animation .heart:before {
+    top: -25px;
+    left: 0;
+}
+
+#landing-page #animation .heart:after {
+    top: 0;
+    left: 25px;
+}
+
+@keyframes float {
+    0% {
+        transform: translateY(0) rotate(-45deg);
+    }
+
+    50% {
+        transform: translateY(-200px) rotate(-45deg);
+    }
+
+    100% {
+        transform: translateY(0) rotate(-45deg);
+    }
 }
 
 h1#game-title {
@@ -81,11 +139,6 @@ button.btn-secondary:hover {
     display: flex;
 }
 
-img {
-    max-width: 80vw;
-    height: auto;
-}
-
 #options img {
     width: 32vh;
     height: 32vh;
@@ -104,11 +157,6 @@ img {
     font-size: 1.2em;
 }
 
-#error-message {
-    font-size: 1.1em;
-    z-index: 20;
-}
-
 @media (min-width: 768px) {
     #options img {
         width: 80%;
@@ -123,57 +171,6 @@ img {
     }
 }
 
-#animation {
-    position: absolute;
-    top: 31.5%;
-    width: 100%;
-    height: 200px;
-    pointer-events: none;
-    z-index: 0;
-}
-
-#animation .heart {
-    position: absolute;
-    bottom: 0;
-    width: 50px;
-    height: 50px;
-    transform: rotate(-45deg);
-    animation: float 6s ease-in-out infinite;
-}
-
-#animation .heart:before,
-#animation .heart:after {
-    content: "";
-    position: absolute;
-    width: 50px;
-    height: 50px;
-    background-color: inherit;
-    border-radius: 50%;
-}
-
-#animation .heart:before {
-    top: -25px;
-    left: 0;
-}
-
-#animation .heart:after {
-    top: 0;
-    left: 25px;
-}
-
-@keyframes float {
-    0% {
-        transform: translateY(0) rotate(-45deg);
-    }
-
-    50% {
-        transform: translateY(-200px) rotate(-45deg);
-    }
-
-    100% {
-        transform: translateY(0) rotate(-45deg);
-    }
-}
 
 #loading-overlay {
     position: fixed;
