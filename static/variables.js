@@ -32,7 +32,7 @@ function getRandomWishLine() {
     return wishLines[Math.floor(Math.random() * wishLines.length)];
 }
 
-const specialDay = "2024-07-10T12:00:00"
+const specialDay = "2024-07-21T12:00:00"
 
 let query = "?auth=";
 

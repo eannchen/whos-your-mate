@@ -12,26 +12,86 @@ body {
     overflow-x: hidden;
 }
 
-img {
-    max-width: 80vw;
-    height: auto;
-}
-
 #app {
     max-width: 500px;
     max-height: 100vh;
     margin-top: 20px;
 }
 
-#footer {
+h1#game-title {
+    font-size: 2.5em;
+    color: #ff69b4;
+    text-align: center;
     position: relative;
-    bottom: 1%;
-    font-size: 1em;
+    z-index: 20;
+}
+
+img {
+    max-width: 80vw;
+    height: auto;
+}
+
+button.btn-primary {
+    background-color: #ff69b4;
+    border-color: #ff69b4;
+}
+
+button.btn-primary:hover {
+    background-color: #ff85c2;
+    border-color: #ff85c2;
+}
+
+button.btn-secondary {
+    background-color: #6c757d;
+    border-color: #6c757d;
+}
+
+button.btn-secondary:hover {
+    background-color: #5a6268;
+    border-color: #545b62;
+}
+
+/* --------------------------------------- */
+
+#loading-overlay {
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    background-color: rgba(255, 255, 255, 0.9);
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    z-index: 1000;
+}
+
+#loading-overlay .spinner-border {
+    width: 3rem;
+    height: 3rem;
+    margin-bottom: 20px;
+}
+
+#loading-overlay p {
+    font-size: 1.5em;
+    color: #ff69b4;
+}
+
+/* --------------------------------------- */
+
+
+#landing-page {
+    min-height: 30vh;
 }
 
 #landing-page #countdown {
     font-size: 1.5em;
     text-shadow: 2px 2px 4px rgba(0, 0, 0, 0.1);
+    z-index: 20;
+}
+
+#landing-page #start-game {
     z-index: 20;
 }
 
@@ -46,7 +106,7 @@ img {
 
 #landing-page #animation {
     position: absolute;
-    top: 31.5%;
+    top: 35%;
     width: 100%;
     height: 200px;
     pointer-events: none;
@@ -96,50 +156,15 @@ img {
     }
 }
 
-h1#game-title {
-    font-size: 2.5em;
-    color: #ff69b4;
-    text-align: center;
-    position: relative;
-    z-index: 20;
-}
+/* --------------------------------------- */
 
-#landing-page {
-    height: 50vh;
-}
-
-button.btn-primary {
-    background-color: #ff69b4;
-    border-color: #ff69b4;
-    z-index: 20;
-}
-
-button.btn-primary:hover {
-    background-color: #ff85c2;
-    border-color: #ff85c2;
-}
-
-button.btn-secondary {
-    background-color: #6c757d;
-    border-color: #6c757d;
-}
-
-button.btn-secondary:hover {
-    background-color: #5a6268;
-    border-color: #545b62;
-}
-
-#options {
+#game-page #options {
     display: flex;
     flex-direction: column;
     justify-content: space-around;
 }
 
-.option-wrapper {
-    display: flex;
-}
-
-#options img {
+#game-page #options img {
     width: 32vh;
     height: 32vh;
     object-fit: cover;
@@ -148,51 +173,27 @@ button.btn-secondary:hover {
     cursor: pointer;
 }
 
-#options img:hover {
+#game-page #options img:hover {
     transform: scale(1.09);
     transition: transform 0.2s;
 }
 
-#message {
-    font-size: 1.2em;
-}
-
 @media (min-width: 768px) {
-    #options img {
+    #game-page #options img {
         width: 80%;
         height: auto;
     }
 }
 
 @media (min-width: 992px) {
-    #options img {
+    #game-page #options img {
         width: 80%;
         height: auto;
     }
 }
 
+/* --------------------------------------- */
 
-#loading-overlay {
-    position: fixed;
-    top: 0;
-    left: 0;
-    width: 100%;
-    height: 100%;
-    background-color: rgba(255, 255, 255, 0.9);
-    display: flex;
-    flex-direction: column;
-    align-items: center;
-    justify-content: center;
-    z-index: 1000;
-}
-
-#loading-overlay .spinner-border {
-    width: 3rem;
-    height: 3rem;
-    margin-bottom: 20px;
-}
-
-#loading-overlay p {
-    font-size: 1.5em;
-    color: #ff69b4;
+#end-page #message {
+    font-size: 1.2em;
 }
