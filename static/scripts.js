@@ -1,6 +1,4 @@
-const APIUrl = 'http://127.0.0.1:80'
-
-let password = ''; // Global variable to store the password
+let password = '';
 
 
 document.addEventListener('DOMContentLoaded', () => {
@@ -39,11 +37,7 @@ function checkBirthday() {
 }
 
 async function fetchGameData() {
-    const response = await fetch(APIUrl + '/game-data', {
-        headers: {
-            'Authorization': password
-        }
-    });
+    const response = await fetch('/game-data?auth=' + password);
     if (!response.ok) {
         throw new Error('Network response was not ok');
     }
@@ -57,13 +51,13 @@ function preloadImages(gameData) {
     gameData.questions.forEach(question => {
         const img1 = document.createElement('img');
         const img2 = document.createElement('img');
-        img1.src = question.img1;
-        img2.src = question.img2;
+        img1.src = question.img1 + '?auth=' + password;
+        img2.src = question.img2 + '?auth=' + password;
         preloadContainer.appendChild(img1);
         preloadContainer.appendChild(img2);
     });
     const groupPhoto = document.createElement('img');
-    groupPhoto.src = gameData.groupPhoto;
+    groupPhoto.src = gameData.groupPhoto + '?auth=' + password;
     preloadContainer.appendChild(groupPhoto);
 }
 
@@ -141,8 +135,8 @@ async function loadQuestion(gameData, currentQuestion) {
     }
     if (currentQuestion < gameData.questions.length) {
         const question = gameData.questions[currentQuestion];
-        document.getElementById('option1').src = question.img1;
-        document.getElementById('option2').src = question.img2;
+        document.getElementById('option1').src = question.img1 + '?auth=' + password;
+        document.getElementById('option2').src = question.img2 + '?auth=' + password;
         document.getElementById('option1').onclick = () => checkAnswer(gameData, currentQuestion, 1);
         document.getElementById('option2').onclick = () => checkAnswer(gameData, currentQuestion, 2);
     } else {
@@ -190,12 +184,10 @@ function endGame(gameData, won) {
     if (won) {
         gameTitle.textContent = 'Happy Birthday 🎂';
         document.getElementById('message').textContent = randomWishLine;
-        document.getElementById('group-photo').src = gameData.groupPhoto;
+        document.getElementById('group-photo').src = gameData.groupPhoto + '?auth=' + password;
         document.getElementById('message').classList.remove('d-none');
         document.getElementById('group-photo').classList.remove('d-none');
         startConfettiAnimation();
-        // const winAudio = document.getElementById('win-audio'); // Get the audio element
-        // winAudio.play(); // Play the romantic song
     } else {
         gameTitle.textContent = 'Oops! 💩';
         document.getElementById('message').classList.add('d-none');

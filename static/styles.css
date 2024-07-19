@@ -9,6 +9,7 @@ body {
     width: 100vw;
     height: 100vh;
     margin: 0;
+    overflow-x: hidden;
 }
 
 #app {
@@ -80,11 +81,14 @@ button.btn-secondary:hover {
     display: flex;
 }
 
+img {
+    max-width: 80vw;
+    height: auto;
+}
+
 #options img {
-    width: 33vh;
-    /* Adjust width to fit within the viewport */
-    height: 33vh;
-    /* Ensure height is the same as width */
+    width: 32vh;
+    height: 32vh;
     object-fit: cover;
     border-radius: 50%;
     box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
