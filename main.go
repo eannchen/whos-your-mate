@@ -55,7 +55,7 @@ func corsMiddleware(next http.Handler) http.Handler {
 
 func gameDataHandler(w http.ResponseWriter, r *http.Request) {
 
-	if r.Header.Get("Authorization") != "sonnie0721" {
+	if r.Header.Get("Authorization") != "0" {
 		http.Error(w, "Unauthorized", http.StatusUnauthorized)
 		return
 	}

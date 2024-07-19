@@ -18,6 +18,14 @@
     <div id="app" class="container text-center">
         <h1 id="game-title" class="my-4">Who is your boyfriend?</h1>
 
+        <!-- Loading Overlay -->
+        <div id="loading-overlay" class="d-none">
+            <div class="spinner-border text-primary" role="status">
+                <!-- <span class="sr-only">Loading...</span> -->
+            </div>
+            <p id="loading-text">Loading... Please wait a moment!</p>
+        </div>
+
         <!-- Landing Page -->
         <div id="landing-page" class="my-5 d-flex flex-column align-items-center justify-content-center">
             <div id="countdown"></div>
@@ -54,6 +62,9 @@
         </div>
 
         <p id="footer" class="text-center">Made with 💖 by Ian</p>
+
+        <!-- Hidden container to preload images -->
+        <div id="preload-images" class="d-none"></div>
     </div>
     <script src="scripts.js"></script>
     <script src="https://cdn.jsdelivr.net/npm/canvas-confetti@1.5.1/dist/confetti.browser.min.js"></script>

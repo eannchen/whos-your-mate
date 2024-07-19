@@ -9,7 +9,7 @@ document.addEventListener('DOMContentLoaded', () => {
 });
 
 function checkBirthday() {
-    const birthday = new Date('2024-07-21T12:00:00'); // Replace with the actual birthday
+    const birthday = new Date('2024-07-10T12:00:00'); // Replace with the actual birthday
     const countdownElement = document.getElementById('countdown');
     const startGameButton = document.getElementById('start-game');
 
@@ -48,7 +48,23 @@ async function fetchGameData() {
         throw new Error('Network response was not ok');
     }
     const gameData = await response.json();
+    preloadImages(gameData); // Preload all images
     return gameData;
+}
+
+function preloadImages(gameData) {
+    const preloadContainer = document.getElementById('preload-images');
+    gameData.questions.forEach(question => {
+        const img1 = document.createElement('img');
+        const img2 = document.createElement('img');
+        img1.src = question.img1;
+        img2.src = question.img2;
+        preloadContainer.appendChild(img1);
+        preloadContainer.appendChild(img2);
+    });
+    const groupPhoto = document.createElement('img');
+    groupPhoto.src = gameData.groupPhoto;
+    preloadContainer.appendChild(groupPhoto);
 }
 
 function showPasswordInput() {
@@ -67,14 +83,16 @@ function setPassword() {
 
 async function startGame() {
     try {
+        showLoadingPage(); // Show loading page
         const gameData = await fetchGameData();
-        loadQuestion(gameData, 0);
+        await loadQuestion(gameData, 0);
         document.getElementById('landing-page').classList.add('d-none');
         document.getElementById('game-page').classList.remove('d-none');
 
         // reset state
         document.getElementById('password').classList.add('d-none');
         document.getElementById('password-button').classList.add('d-none');
+        hideLoadingPage(); // Hide loading page
 
         document.getElementById('start-game').classList.remove('d-none');
     } catch (error) {
@@ -84,7 +102,39 @@ async function startGame() {
     }
 }
 
-function loadQuestion(gameData, currentQuestion) {
+function showLoadingPage() {
+    const loadingText = document.getElementById('loading-text');
+    loadingText.textContent = getRandomLoadingText();
+    const loadingOverlay = document.getElementById('loading-overlay');
+    loadingOverlay.classList.remove('d-none');
+}
+
+function hideLoadingPage() {
+    const loadingOverlay = document.getElementById('loading-overlay');
+    loadingOverlay.classList.add('d-none');
+}
+
+const loadingTexts = [
+    "Hold tight, magic is happening!",
+    "Getting things ready just for you...",
+    "Almost there, stay tuned!",
+    "Fetching some awesomeness...",
+    "Loading... the best things come to those who wait!",
+    "Making sure everything is perfect...",
+    "Good things take time, almost done!",
+    "Hold on, sprinkling some magic dust...",
+    "Patience is a virtue, loading...",
+    "Getting things ready for you, hang tight!"
+];
+
+function getRandomLoadingText() {
+    return loadingTexts[Math.floor(Math.random() * loadingTexts.length)];
+}
+
+async function loadQuestion(gameData, currentQuestion) {
+    if (currentQuestion == 0) {
+        await sleep(1000);  // Sleep for 2 seconds
+    }
     if (currentQuestion < gameData.questions.length) {
         const question = gameData.questions[currentQuestion];
         document.getElementById('option1').src = question.img1;
@@ -94,6 +144,10 @@ function loadQuestion(gameData, currentQuestion) {
     } else {
         endGame(gameData, true);
     }
+}
+
+function sleep(ms) {
+    return new Promise(resolve => setTimeout(resolve, ms));
 }
 
 function checkAnswer(gameData, currentQuestion, selectedOption) {

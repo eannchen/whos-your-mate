@@ -6,13 +6,14 @@ body {
     display: flex;
     justify-content: center;
     align-items: center;
+    width: 100vw;
     height: 100vh;
     margin: 0;
 }
 
 #app {
-    width: 100%;
     max-width: 500px;
+    max-height: 100vh;
     margin-top: 20px;
 }
 
@@ -96,11 +97,11 @@ button.btn-secondary:hover {
 }
 
 #message {
-    font-size: 1em;
+    font-size: 1.1em;
 }
 
 #error-message {
-    font-size: 1.2em;
+    font-size: 1.1em;
     z-index: 20;
 }
 
@@ -168,4 +169,29 @@ button.btn-secondary:hover {
     100% {
         transform: translateY(0) rotate(-45deg);
     }
+}
+
+#loading-overlay {
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    background-color: rgba(255, 255, 255, 0.8);
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    z-index: 1000;
+}
+
+#loading-overlay .spinner-border {
+    width: 3rem;
+    height: 3rem;
+    margin-bottom: 20px;
+}
+
+#loading-overlay p {
+    font-size: 1.5em;
+    color: #ff69b4;
 }
