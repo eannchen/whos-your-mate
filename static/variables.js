@@ -40,7 +40,7 @@ export let query = "?auth=";
 export const setQuery = password => { query = "?auth=" + password; };
 
 export const fetchGameData = async () => {
-    const response = await fetch('http://127.0.0.1:80/game-data' + query);
+    const response = await fetch('/game-data' + query);
     if (!response.ok) throw new Error('Network response was not ok');
     return await response.json();
 };
