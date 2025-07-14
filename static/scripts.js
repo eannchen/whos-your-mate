@@ -21,7 +21,7 @@ const App = {
             title: document.getElementById('game-title'),
             loadingOverlay: document.getElementById('loading-overlay'),
             loadingOverlayText: document.getElementById('loading-text'),
-            loading: document.getElementById('landing-page'),
+            home: document.getElementById('home-page'),
             countdown: document.getElementById('countdown'),
             animation: document.getElementById('animation'),
             startGame: document.getElementById('start-game'),
@@ -40,7 +40,7 @@ const App = {
     bindEvents() {
         this.elements.startGame.querySelector('button').addEventListener('click', () => this.showPasswordInput());
         this.elements.password.querySelector('button').addEventListener('click', () => this.setPassword());
-        document.getElementById('back-to-start').addEventListener('click', () => this.pageEnd2PageLoading());
+        document.getElementById('back-to-start').addEventListener('click', () => this.pageEnd2PageHome());
     },
 
     startCountdown() {
@@ -83,8 +83,8 @@ const App = {
         this.elements.startGame.classList.remove('d-none');
     },
 
-    pageLoading2PageGame() {
-        this.elements.loading.classList.add('d-none');
+    pageLoading2PageHome() {
+        this.elements.home.classList.add('d-none');
         this.elements.game.classList.remove('d-none');
     },
 
@@ -98,7 +98,7 @@ const App = {
             await sleep(1000);
             this.hideLoadingPage();
             this.rollbackShowPasswordInput();
-            this.pageLoading2PageGame();
+            this.pageLoading2PageHome();
         } catch (error) {
             this.hideLoadingPage();
             this.elements.passwordErrMsg.textContent = 'Error loading game data. The password might be wrong!';
@@ -149,10 +149,10 @@ const App = {
         this.pageGame2PageEnd();
     },
 
-    pageEnd2PageLoading() {
+    pageEnd2PageHome() {
         this.elements.title.textContent = "Who's your mate?";
         this.elements.end.classList.add('d-none');
-        this.elements.loading.classList.remove('d-none');
+        this.elements.home.classList.remove('d-none');
     }
 };
 

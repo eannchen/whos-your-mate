@@ -81,30 +81,30 @@ button.btn-secondary:hover {
 /* --------------------------------------- */
 
 
-#landing-page {
+#home-page {
     min-height: 30vh;
 }
 
-#landing-page #countdown {
+#home-page #countdown {
     font-size: 1.5em;
     text-shadow: 2px 2px 4px rgba(0, 0, 0, 0.1);
     z-index: 20;
 }
 
-#landing-page #start-game {
+#home-page #start-game {
     z-index: 20;
 }
 
-#landing-page #password {
+#home-page #password {
     width: 100%;
     z-index: 20;
 }
 
-#landing-page #password #error-message {
+#home-page #password #error-message {
     font-size: 1.1em;
 }
 
-#landing-page #animation {
+#home-page #animation {
     position: absolute;
     top: 35%;
     width: 100%;
@@ -113,7 +113,7 @@ button.btn-secondary:hover {
     z-index: 0;
 }
 
-#landing-page #animation .heart {
+#home-page #animation .heart {
     position: absolute;
     bottom: 0;
     width: 50px;
@@ -122,8 +122,8 @@ button.btn-secondary:hover {
     animation: float 6s ease-in-out infinite;
 }
 
-#landing-page #animation .heart:before,
-#landing-page #animation .heart:after {
+#home-page #animation .heart:before,
+#home-page #animation .heart:after {
     content: "";
     position: absolute;
     width: 50px;
@@ -132,12 +132,12 @@ button.btn-secondary:hover {
     border-radius: 50%;
 }
 
-#landing-page #animation .heart:before {
+#home-page #animation .heart:before {
     top: -25px;
     left: 0;
 }
 
-#landing-page #animation .heart:after {
+#home-page #animation .heart:after {
     top: 0;
     left: 25px;
 }
