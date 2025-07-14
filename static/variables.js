@@ -1,4 +1,6 @@
-const loadingTexts = [
+// Utility and configuration module
+
+export const loadingTexts = [
     "Hold tight, magic is happening!",
     "Getting things ready just for you...",
     "Almost there, stay tuned!",
@@ -11,11 +13,7 @@ const loadingTexts = [
     "Getting things ready for you, hang tight!"
 ];
 
-function getRandomLoadingText() {
-    return loadingTexts[Math.floor(Math.random() * loadingTexts.length)];
-}
-
-const wishLines = [
+export const wishLines = [
     "Happy birthday to the one who's miles away but close to my heart. Wishing you a day filled with joy and love, even from afar.",
     "Distance may separate us physically, but our love knows no bounds. Happy birthday!",
     "Even though we're apart, my heart is with you every step of the way. Happy birthday, my dear.",
@@ -28,130 +26,60 @@ const wishLines = [
     "No matter the miles that separate us, you're always with me in spirit. Happy birthday, sweetheart."
 ];
 
-function getRandomWishLine() {
-    return wishLines[Math.floor(Math.random() * wishLines.length)];
-}
+export const specialDay = "2024-07-21T12:00:00";
 
-const specialDay = "2024-07-21T12:00:00"
+export const getRandomLoadingText = () =>
+    loadingTexts[Math.floor(Math.random() * loadingTexts.length)];
 
-let query = "?auth=";
+export const getRandomWishLine = () =>
+    wishLines[Math.floor(Math.random() * wishLines.length)];
 
-function setQuery(password) {
-    query = "?auth=" + password
-}
+export const sleep = ms => new Promise(resolve => setTimeout(resolve, ms));
 
-let eleTitle;
+export let query = "?auth=";
+export const setQuery = password => { query = "?auth=" + password; };
 
-let elePageLoadingOverlay;
-let elePageLoadingOverlayText;
+export const fetchGameData = async () => {
+    const response = await fetch('http://127.0.0.1:80/game-data' + query);
+    if (!response.ok) throw new Error('Network response was not ok');
+    return await response.json();
+};
 
-let elePageLoading;
-let elePageLoadingCountdown;
-let elePageLoadingAnimation;
-let elePageLoadingStartGame;
-let elePageLoadingPassword;
-let elePageLoadingPasswordErrMsg;
-let elePageLoadingPasswordInput;
-
-let elePageGame;
-let elePageGameOption1;
-let elePageGameOption2;
-
-let elePageEnd;
-let elePageEndMessage;
-let elePageEndGroupPhoto;
-
-function getElements() {
-    // Game page
-    eleTitle = document.getElementById('game-title');
-
-    // Loading Overlay
-    elePageLoadingOverlay = document.getElementById('loading-overlay');
-    elePageLoadingOverlayText = document.getElementById('loading-text');
-
-    // Loading page
-    elePageLoading = document.getElementById('landing-page');
-    elePageLoadingCountdown = document.getElementById('countdown');
-    elePageLoadingAnimation = document.getElementById('animation');
-    elePageLoadingStartGame = document.getElementById('start-game');
-    elePageLoadingPassword = document.getElementById('password');
-    elePageLoadingPasswordErrMsg = document.getElementById('error-message');
-    elePageLoadingPasswordInput = document.getElementById('password-input');
-
-    // Game page
-    elePageGame = document.getElementById('game-page');
-    elePageGameOption1 = document.getElementById('option1');
-    elePageGameOption2 = document.getElementById('option2');
-
-    // End page
-    elePageEnd = document.getElementById('end-page');
-    elePageEndMessage = document.getElementById('message');
-    elePageEndGroupPhoto = document.getElementById('group-photo');
-}
-
-
-function sleep(ms) {
-    return new Promise(resolve => setTimeout(resolve, ms));
-}
-
-async function fetchGameData() {
-    const response = await fetch('/game-data' + query);
-    if (!response.ok) {
-        throw new Error('Network response was not ok');
-    }
-    const gameData = await response.json();
-    return gameData;
-}
-
-function preloadImages(gameData) {
+export const preloadImages = gameData => {
     const preloadContainer = document.getElementById('preload-images');
-    gameData.questions.forEach(question => {
-        const img1 = document.createElement('img');
-        const img2 = document.createElement('img');
-        img1.src = question.img1 + query;
-        img2.src = question.img2 + query;
-        preloadContainer.appendChild(img1);
-        preloadContainer.appendChild(img2);
+    gameData.questions.forEach(q => {
+        ['img1', 'img2'].forEach(imgKey => {
+            const img = document.createElement('img');
+            img.src = q[imgKey] + query;
+            preloadContainer.appendChild(img);
+        });
     });
     const groupPhoto = document.createElement('img');
     groupPhoto.src = gameData.groupPhoto + query;
     preloadContainer.appendChild(groupPhoto);
-}
+};
 
-function startConfettiAnimation() {
-    const duration = 1.2 * 1000;
+export const startConfettiAnimation = () => {
+    const duration = 1200;
     const end = Date.now() + duration;
-
     (function frame() {
-        confetti({
-            particleCount: 3,
-            angle: 60,
-            spread: 55,
-            origin: { x: 0 }
-        });
-        confetti({
-            particleCount: 3,
-            angle: 120,
-            spread: 55,
-            origin: { x: 1 }
-        });
+        confetti({ particleCount: 3, angle: 60, spread: 55, origin: { x: 0 } });
+        confetti({ particleCount: 3, angle: 120, spread: 55, origin: { x: 1 } });
+        if (Date.now() < end) requestAnimationFrame(frame);
+    })();
+};
 
-        if (Date.now() < end) {
-            requestAnimationFrame(frame);
-        }
-    }());
-}
-
-function startHeartAnimation() {
-    elePageLoadingAnimation.innerHTML = ''; // Clear previous hearts
+export const startHeartAnimation = () => {
+    const container = document.getElementById('animation');
+    container.innerHTML = '';
     for (let i = 0; i < 10; i++) {
         const heart = document.createElement('div');
         heart.className = 'heart';
-        heart.style.left = `${i * 10}%`; // Ensure hearts are centered
+        heart.style.left = `${i * 10}%`;
         heart.style.animationDuration = `${Math.random() * 2 + 4}s`;
         const isBlack = Math.random() < 0.5;
-        heart.style.backgroundColor = isBlack ? 'black' : 'white'; // Randomly assign black or white color
-        heart.style.opacity = isBlack ? '0.7' : '0.8'; // Set opacity based on color
-        elePageLoadingAnimation.appendChild(heart);
+        heart.style.backgroundColor = isBlack ? 'black' : 'white';
+        heart.style.opacity = isBlack ? '0.7' : '0.8';
+        container.appendChild(heart);
     }
-}
+};
