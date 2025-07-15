@@ -12,9 +12,9 @@ const App = {
     init() {
         this.cacheElements();
         this.bindEvents();
+        this.initTheme();
         this.startCountdown();
         startHeartAnimation();
-        this.initThemeToggle();
     },
 
     cacheElements() {
@@ -22,50 +22,60 @@ const App = {
             title: document.getElementById('game-title'),
             loadingOverlay: document.getElementById('loading-overlay'),
             loadingOverlayText: document.getElementById('loading-text'),
-            home: document.getElementById('home-page'),
+            // Theme Toggle
+            themeColorfulBtn: document.getElementById('theme-colorful'),
+            themeBWBtn: document.getElementById('theme-bw'),
+            // Home Page
+            homePage: document.getElementById('home-page'),
             countdown: document.getElementById('countdown'),
             animation: document.getElementById('animation'),
             startGame: document.getElementById('start-game'),
             password: document.getElementById('password'),
             passwordErrMsg: document.getElementById('error-message'),
             passwordInput: document.getElementById('password-input'),
-            game: document.getElementById('game-page'),
+            // Game Page
+            gamePage: document.getElementById('game-page'),
             option1: document.getElementById('option1'),
             option2: document.getElementById('option2'),
-            end: document.getElementById('end-page'),
+            // End Page
+            endPage: document.getElementById('end-page'),
             endMessage: document.getElementById('message'),
-            endGroupPhoto: document.getElementById('group-photo')
+            endGroupPhoto: document.getElementById('group-photo'),
+            backToStartBtn: document.getElementById('back-to-start')
         };
     },
 
     bindEvents() {
+        // Theme Toggle
+        this.elements.themeBWBtn.addEventListener('click', () => this.setThemeBW());
+        this.elements.themeColorfulBtn.addEventListener('click', () => this.setThemeColorful());
+        // Home Page
         this.elements.startGame.querySelector('button').addEventListener('click', () => this.showPasswordInput());
         this.elements.password.querySelector('button').addEventListener('click', () => this.setPassword());
-        document.getElementById('back-to-start').addEventListener('click', () => this.pageEnd2PageHome());
+        // End Page
+        this.elements.backToStartBtn.addEventListener('click', () => this.pageEnd2PageHome());
     },
 
-    initThemeToggle() {
-        const btnColorful = document.getElementById('theme-colorful');
-        const btnBW = document.getElementById('theme-bw');
-        // Set initial theme
+    setThemeBW() {
+        document.body.classList.add('theme-bw');
+        this.elements.themeBWBtn.classList.add('active');
+        this.elements.themeColorfulBtn.classList.remove('active');
+        localStorage.setItem('theme', 'bw');
+    },
+
+    setThemeColorful() {
+        document.body.classList.remove('theme-bw');
+        this.elements.themeColorfulBtn.classList.add('active');
+        this.elements.themeBWBtn.classList.remove('active');
+        localStorage.setItem('theme', 'colorful');
+    },
+
+    initTheme() {
         if (localStorage.getItem('theme') === 'bw') {
-            document.body.classList.add('theme-bw');
-            btnBW.classList.add('active');
+            this.setThemeBW();
         } else {
-            btnColorful.classList.add('active');
+            this.setThemeColorful();
         }
-        btnColorful.addEventListener('click', () => {
-            document.body.classList.remove('theme-bw');
-            btnColorful.classList.add('active');
-            btnBW.classList.remove('active');
-            localStorage.setItem('theme', 'colorful');
-        });
-        btnBW.addEventListener('click', () => {
-            document.body.classList.add('theme-bw');
-            btnBW.classList.add('active');
-            btnColorful.classList.remove('active');
-            localStorage.setItem('theme', 'bw');
-        });
     },
 
     startCountdown() {
@@ -109,8 +119,8 @@ const App = {
     },
 
     pageLoading2PageHome() {
-        this.elements.home.classList.add('d-none');
-        this.elements.game.classList.remove('d-none');
+        this.elements.homePage.classList.add('d-none');
+        this.elements.gamePage.classList.remove('d-none');
     },
 
     async setPassword() {
@@ -152,8 +162,8 @@ const App = {
     },
 
     pageGame2PageEnd() {
-        this.elements.game.classList.add('d-none');
-        this.elements.end.classList.remove('d-none');
+        this.elements.gamePage.classList.add('d-none');
+        this.elements.endPage.classList.remove('d-none');
         this.elements.option1.removeAttribute("src");
         this.elements.option2.removeAttribute("src");
     },
@@ -176,8 +186,8 @@ const App = {
 
     pageEnd2PageHome() {
         this.elements.title.textContent = "Who's your mate?";
-        this.elements.end.classList.add('d-none');
-        this.elements.home.classList.remove('d-none');
+        this.elements.endPage.classList.add('d-none');
+        this.elements.homePage.classList.remove('d-none');
     }
 };
 
