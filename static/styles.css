@@ -197,3 +197,88 @@ button.btn-secondary:hover {
 #end-page #message {
     font-size: 1.2em;
 }
+
+
+
+/* ...existing code... */
+
+/* Theme toggle buttons */
+#theme-toggle .theme-btn {
+    border-radius: 50%;
+    box-shadow: 0 2px 8px rgba(255, 105, 180, 0.12);
+    width: 44px;
+    height: 44px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    font-size: 1.3em;
+    transition: background 0.2s, box-shadow 0.2s;
+    border: none;
+}
+
+#theme-toggle .theme-btn:focus {
+    outline: 2px solid #ff69b4;
+}
+
+#theme-toggle .theme-btn.active {
+    background: #ffe4f0;
+    box-shadow: 0 4px 12px rgba(255, 105, 180, 0.18);
+}
+
+/* Black & White theme */
+body.theme-bw {
+    background: #fff !important;
+    color: #111 !important;
+}
+
+body.theme-bw #game-title {
+    color: #111 !important;
+}
+
+body.theme-bw button.btn-primary,
+body.theme-bw button.btn-primary:hover {
+    background: #222 !important;
+    border-color: #222 !important;
+    color: #fff !important;
+}
+
+body.theme-bw button.btn-secondary,
+body.theme-bw button.btn-secondary:hover {
+    background: #888 !important;
+    border-color: #888 !important;
+    color: #fff !important;
+}
+
+body.theme-bw #loading-overlay p,
+body.theme-bw #home-page #countdown {
+    color: #222 !important;
+}
+
+body.theme-bw #home-page #animation .heart,
+body.theme-bw #home-page #animation .heart:before,
+body.theme-bw #home-page #animation .heart:after {
+    background-color: #222 !important;
+}
+
+body.theme-bw #theme-toggle .theme-btn.active {
+    background: #eee;
+    box-shadow: 0 4px 12px rgba(0, 0, 0, 0.10);
+}
+
+body.theme-bw #theme-toggle .fa-heart {
+    color: #bbb !important;
+}
+
+body.theme-bw #theme-toggle .fa-moon {
+    color: #222 !important;
+}
+
+/* Make all images grayscale in black & white theme */
+body.theme-bw img {
+    filter: grayscale(1);
+}
+
+body.theme-bw #game-page img,
+body.theme-bw #end-page img {
+    filter: grayscale(1);
+}

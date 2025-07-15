@@ -14,6 +14,7 @@ const App = {
         this.bindEvents();
         this.startCountdown();
         startHeartAnimation();
+        this.initThemeToggle();
     },
 
     cacheElements() {
@@ -41,6 +42,30 @@ const App = {
         this.elements.startGame.querySelector('button').addEventListener('click', () => this.showPasswordInput());
         this.elements.password.querySelector('button').addEventListener('click', () => this.setPassword());
         document.getElementById('back-to-start').addEventListener('click', () => this.pageEnd2PageHome());
+    },
+
+    initThemeToggle() {
+        const btnColorful = document.getElementById('theme-colorful');
+        const btnBW = document.getElementById('theme-bw');
+        // Set initial theme
+        if (localStorage.getItem('theme') === 'bw') {
+            document.body.classList.add('theme-bw');
+            btnBW.classList.add('active');
+        } else {
+            btnColorful.classList.add('active');
+        }
+        btnColorful.addEventListener('click', () => {
+            document.body.classList.remove('theme-bw');
+            btnColorful.classList.add('active');
+            btnBW.classList.remove('active');
+            localStorage.setItem('theme', 'colorful');
+        });
+        btnBW.addEventListener('click', () => {
+            document.body.classList.add('theme-bw');
+            btnBW.classList.add('active');
+            btnColorful.classList.remove('active');
+            localStorage.setItem('theme', 'bw');
+        });
     },
 
     startCountdown() {
