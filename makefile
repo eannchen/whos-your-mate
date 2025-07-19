@@ -6,6 +6,9 @@ APP_TAG=latest
 USER_API_ADDRESS=${USER}@${HOST}
 SSH_DEPLOY_PATH=${USER_API_ADDRESS}:${DEPLOY_PATH}
 
+run:
+	source env.sh && go run main.go
+
 deploy: build-image rsync-img2server rsync-dcompose2server clean
 
 build-image:
