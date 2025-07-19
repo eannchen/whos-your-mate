@@ -54,9 +54,9 @@ export const preloadImages = gameData => {
             preloadContainer.appendChild(img);
         });
     });
-    const groupPhoto = document.createElement('img');
-    groupPhoto.src = gameData.groupPhoto + query;
-    preloadContainer.appendChild(groupPhoto);
+    const endingPhoto = document.createElement('img');
+    endingPhoto.src = gameData.endingPhoto + query;
+    preloadContainer.appendChild(endingPhoto);
 };
 
 export const startConfettiAnimation = () => {

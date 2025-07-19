@@ -173,7 +173,7 @@ const App = {
             this.elements.title.textContent = 'Happy Birthday 🎂';
             this.elements.endMessage.textContent = getRandomWishLine();
             this.elements.endMessage.classList.remove('d-none');
-            this.elements.endGroupPhoto.src = gameData.groupPhoto + query;
+            this.elements.endGroupPhoto.src = gameData.endingPhoto + query;
             this.elements.endGroupPhoto.classList.remove('d-none');
             startConfettiAnimation();
         } else {

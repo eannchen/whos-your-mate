@@ -10,6 +10,8 @@ import (
 	"path/filepath"
 	"strings"
 	"time"
+
+	"whos-your-mate/config"
 )
 
 type Question struct {
@@ -19,31 +21,20 @@ type Question struct {
 }
 
 type GameData struct {
-	Questions  []Question `json:"questions"`
-	GroupPhoto string     `json:"groupPhoto"`
+	Questions   []Question `json:"questions"`
+	EndingPhoto string     `json:"endingPhoto"`
 }
-
-const (
-	authorization    = "0721"
-	minImgNumber     = 5
-	youDir           = "images/you"
-	celebritiesDir   = "images/celebrities"
-	groupsDir        = "images/groups"
-	staticDir        = "./static"
-	imagesDir        = "./images"
-	apiListenAddress = ":80"
-)
 
 var supportExtensions = map[string]bool{
 	".jpg": true, ".jpeg": true, ".png": true, ".gif": true, ".webp": true,
 }
 
 func main() {
-	http.Handle("/", http.FileServer(http.Dir(staticDir)))
-	http.Handle("/images/", corsMiddleware(http.StripPrefix("/images/", http.FileServer(http.Dir(imagesDir)))))
+	http.Handle("/", http.FileServer(http.Dir(config.Env().StaticDir)))
+	http.Handle("/images/", corsMiddleware(http.StripPrefix("/images/", http.FileServer(http.Dir(config.Env().ImagesDir)))))
 	http.Handle("/game-data", corsMiddleware(http.HandlerFunc(gameDataHandler)))
-	log.Printf("Server started at %s\n", apiListenAddress)
-	log.Fatal(http.ListenAndServe(apiListenAddress, nil))
+	log.Printf("Server started at %d\n", config.Env().Port)
+	log.Fatal(http.ListenAndServe(fmt.Sprintf(":%d", config.Env().Port), nil))
 }
 
 // corsMiddleware adds CORS headers and checks authorization
@@ -55,7 +46,8 @@ func corsMiddleware(next http.Handler) http.Handler {
 			w.WriteHeader(http.StatusOK)
 			return
 		}
-		if r.URL.Query().Get("auth") != authorization {
+		if r.URL.Query().Get("auth") != config.Env().APIAuth {
+			fmt.Println(config.Env().APIAuth)
 			http.Error(w, "Unauthorized", http.StatusUnauthorized)
 			return
 		}
@@ -65,34 +57,35 @@ func corsMiddleware(next http.Handler) http.Handler {
 
 // gameDataHandler serves randomized game data as JSON
 func gameDataHandler(w http.ResponseWriter, r *http.Request) {
-	youImages, err := loadImages(youDir)
+	correctImages, err := loadImages(config.Env().ChoiceAImgDir)
 	if err != nil {
 		respondWithError(w, "Could not read your images", err)
 		return
 	}
-	celebrityImages, err := loadImages(celebritiesDir)
+	wrongImages, err := loadImages(config.Env().ChoiceBImgDir)
 	if err != nil {
 		respondWithError(w, "Could not read celebrity images", err)
 		return
 	}
-	groupPhotos, err := loadImages(groupsDir)
+	endingPhotos, err := loadImages(config.Env().EndingImgDir)
 	if err != nil {
-		respondWithError(w, "Could not read group images", err)
+		respondWithError(w, "Could not read ending images", err)
 		return
 	}
 
-	if len(youImages) < minImgNumber || len(celebrityImages) < minImgNumber || len(groupPhotos) == 0 {
-		err := fmt.Errorf("Not enough images. You: %d, Celebrities: %d, Groups: %d", len(youImages), len(celebrityImages), len(groupPhotos))
+	questionCount := config.Env().QuestionCount
+	if len(correctImages) < questionCount || len(wrongImages) < questionCount || len(endingPhotos) == 0 {
+		err := fmt.Errorf("Not enough images. Correct Images: %d, Wrong Images: %d, Ending Images: %d", len(correctImages), len(wrongImages), len(endingPhotos))
 		respondWithError(w, "Not enough images to create questions", err)
 		return
 	}
 
-	questions := generateQuestions(youImages, celebrityImages, minImgNumber)
-	groupPhoto := "/" + groupPhotos[randomIndex(len(groupPhotos))]
+	questions := generateQuestions(correctImages, wrongImages, questionCount)
+	endingPhoto := "/" + endingPhotos[randomIndex(len(endingPhotos))]
 
 	gameData := GameData{
-		Questions:  questions,
-		GroupPhoto: groupPhoto,
+		Questions:   questions,
+		EndingPhoto: endingPhoto,
 	}
 
 	w.Header().Set("Content-Type", "application/json")
@@ -121,24 +114,28 @@ func loadImages(dir string) ([]string, error) {
 }
 
 // generateQuestions creates randomized questions for the game
-func generateQuestions(youImages, celebImages []string, count int) []Question {
+func generateQuestions(correctImages, wrongImagesImages []string, count int) []Question {
 	r := rand.New(rand.NewSource(time.Now().UnixNano()))
-	r.Shuffle(len(youImages), func(i, j int) { youImages[i], youImages[j] = youImages[j], youImages[i] })
-	r.Shuffle(len(celebImages), func(i, j int) { celebImages[i], celebImages[j] = celebImages[j], celebImages[i] })
+	r.Shuffle(len(correctImages), func(i, j int) {
+		correctImages[i], correctImages[j] = correctImages[j], correctImages[i]
+	})
+	r.Shuffle(len(wrongImagesImages), func(i, j int) {
+		wrongImagesImages[i], wrongImagesImages[j] = wrongImagesImages[j], wrongImagesImages[i]
+	})
 
 	questions := make([]Question, count)
 	for i := 0; i < count; i++ {
 		correctOption := r.Intn(2) + 1 // 1 or 2
 		if correctOption == 1 {
 			questions[i] = Question{
-				Img1:    "/" + youImages[i],
-				Img2:    "/" + celebImages[i],
+				Img1:    "/" + correctImages[i],
+				Img2:    "/" + wrongImagesImages[i],
 				Correct: 1,
 			}
 		} else {
 			questions[i] = Question{
-				Img1:    "/" + celebImages[i],
-				Img2:    "/" + youImages[i],
+				Img1:    "/" + wrongImagesImages[i],
+				Img2:    "/" + correctImages[i],
 				Correct: 2,
 			}
 		}
