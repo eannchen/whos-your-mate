@@ -10,27 +10,28 @@
     --color-title: #ff69b4;
     --color-loading-text: #ff69b4;
     --color-heart: #ff69b4;
-    --color-heart-bg: #ffe4f0;
+    --color-heart-bg: #fedfed;
     --color-heart-shadow: rgba(255, 105, 180, 0.18);
+    --color-btn-background: #f0f0f0;
     --color-btn-shadow: rgba(255, 105, 180, 0.12);
-    --color-btn-active-bg: #ffe4f0;
+    --color-btn-active-bg: #ffd4e7;
     --color-btn-active-shadow: rgba(255, 105, 180, 0.18);
-    --color-moon: #333;
+    --color-moon: #1a1212;
     --color-heart-inactive: #bbb;
     --color-moon-active: #222;
-    --color-bw-bg: #fff;
-    --color-bw-text: #111;
-    --color-bw-primary: #222;
-    --color-bw-secondary: #888;
-    --color-bw-btn-active-bg: #eee;
-    --color-bw-btn-active-shadow: rgba(0, 0, 0, 0.10);
-    --color-bw-heart: #bbb;
-    --color-bw-moon: #222;
-    --color-bw-heart-bg: #222;
-    --color-bw-countdown: #222;
-    --color-bw-title: #111;
-    --color-bw-loading-text: #222;
-    --img-grayscale: 0;
+    --color-dark-bg: #1e1e1e;
+    --color-dark-text: #f0f0f0;
+    --color-dark-title: #ff69b4;
+    --color-dark-primary: #ff69b4;
+    --color-dark-secondary: #888;
+    --color-dark-loading-text: #ff69b4;
+    --color-dark-heart: #ff69b4;
+    --color-dark-heart-bg: #f0f0f0;
+    --color-dark-moon: #f0f0f0;
+    --color-dark-btn-background: #f0f0f0;
+    --color-dark-btn-active-bg: #ff69b4;
+    --color-dark-btn-active-shadow: rgba(255, 105, 180, 0.3);
+    --color-dark-img-grayscale: 0;
 }
 
 body {
@@ -245,6 +246,7 @@ button.btn-secondary:hover {
     font-size: 1.3em;
     transition: background 0.2s, box-shadow 0.2s;
     border: none;
+    background-color: var(--color-btn-background);
 }
 
 #theme-toggle .theme-btn:focus {
@@ -266,25 +268,26 @@ button.btn-secondary:hover {
 }
 
 /* Black & White theme overrides */
-body.theme-bw {
-    --color-bg: var(--color-bw-bg);
-    --color-text: var(--color-bw-text);
-    --color-title: var(--color-bw-title);
-    --color-primary: var(--color-bw-primary);
-    --color-primary-hover: var(--color-bw-primary);
-    --color-secondary: var(--color-bw-secondary);
-    --color-secondary-hover: var(--color-bw-secondary);
-    --color-secondary-border-hover: var(--color-bw-secondary);
-    --color-loading-text: var(--color-bw-loading-text);
-    --color-btn-active-bg: var(--color-bw-btn-active-bg);
-    --color-btn-active-shadow: var(--color-bw-btn-active-shadow);
-    --color-heart: var(--color-bw-heart);
-    --color-moon: var(--color-bw-moon);
-    --img-grayscale: 1;
+body.theme-dark {
+    --color-bg: var(--color-dark-bg);
+    --color-text: var(--color-dark-text);
+    --color-title: var(--color-dark-title);
+    --color-primary: var(--color-dark-primary);
+    --color-primary-hover: var(--color-dark-primary);
+    --color-secondary: var(--color-dark-secondary);
+    --color-secondary-hover: var(--color-dark-secondary);
+    --color-secondary-border-hover: var(--color-dark-secondary);
+    --color-loading-text: var(--color-dark-loading-text);
+    --color-btn-background: var(--color-dark-btn-background);
+    --color-btn-active-bg: var(--color-dark-btn-active-bg);
+    --color-btn-active-shadow: var(--color-dark-btn-active-shadow);
+    --color-heart: var(--color-dark-heart);
+    --img-grayscale: var(--color-dark-img-grayscale);
+    --color-moon: var(--color-dark-moon);
 }
 
-body.theme-bw #home-page #animation .heart,
-body.theme-bw #home-page #animation .heart:before,
-body.theme-bw #home-page #animation .heart:after {
-    background-color: var(--color-bw-heart-bg) !important;
+body.theme-dark #home-page #animation .heart,
+body.theme-dark #home-page #animation .heart:before,
+body.theme-dark #home-page #animation .heart:after {
+    background-color: var(--color-dark-heart-bg) !important;
 }

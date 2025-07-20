@@ -32,8 +32,8 @@ const App = {
             loadingOverlay: document.getElementById('loading-overlay'),
             loadingOverlayText: document.getElementById('loading-text'),
             // Theme Toggle
-            themeColorfulBtn: document.getElementById('theme-colorful'),
-            themeBWBtn: document.getElementById('theme-bw'),
+            themeLightBtn: document.getElementById('theme-light'),
+            themeDarkBtn: document.getElementById('theme-dark'),
             // Home Page
             homePage: document.getElementById('home-page'),
             countdown: document.getElementById('countdown'),
@@ -56,8 +56,8 @@ const App = {
 
     bindEvents() {
         // Theme Toggle
-        this.elements.themeBWBtn.addEventListener('click', () => this.setThemeBW());
-        this.elements.themeColorfulBtn.addEventListener('click', () => this.setThemeColorful());
+        this.elements.themeDarkBtn.addEventListener('click', () => this.setThemeDark());
+        this.elements.themeLightBtn.addEventListener('click', () => this.setThemeLight());
         // Home Page
         this.elements.startGame.querySelector('button').addEventListener('click', () => this.showPasswordInput());
         this.elements.password.querySelector('button').addEventListener('click', () => this.setPassword());
@@ -65,29 +65,29 @@ const App = {
         this.elements.backToStartBtn.addEventListener('click', () => this.pageEnd2PageHome());
     },
 
-    setThemeBW() {
-        document.body.classList.add('theme-bw');
-        this.elements.themeBWBtn.classList.add('active');
-        this.elements.themeColorfulBtn.classList.remove('active');
-        this.elements.madeBy.textContent = `Made with 🖤 by ${this.config.MADE_BY}`;
-        localStorage.setItem('theme', 'bw');
+    setThemeDark() {
+        document.body.classList.add('theme-dark');
+        this.elements.themeDarkBtn.classList.add('active');
+        this.elements.themeLightBtn.classList.remove('active');
+        this.elements.madeBy.textContent = `Made with 🤍 by ${this.config.MADE_BY}`;
+        localStorage.setItem('theme', 'dark');
     },
 
-    setThemeColorful() {
-        document.body.classList.remove('theme-bw');
-        this.elements.themeColorfulBtn.classList.add('active');
-        this.elements.themeBWBtn.classList.remove('active');
+    setThemeLight() {
+        document.body.classList.remove('theme-dark');
+        this.elements.themeLightBtn.classList.add('active');
+        this.elements.themeDarkBtn.classList.remove('active');
         this.elements.madeBy.textContent = `Made with 💖 by ${this.config.MADE_BY}`;
-        localStorage.setItem('theme', 'colorful');
+        localStorage.setItem('theme', 'light');
     },
 
     initTheme() {
         this.elements.title.textContent = this.config.APP_TITLE;
 
-        if (localStorage.getItem('theme') === 'bw') {
-            this.setThemeBW();
+        if (localStorage.getItem('theme') === 'dark') {
+            this.setThemeDark();
         } else {
-            this.setThemeColorful();
+            this.setThemeLight();
         }
     },
 
