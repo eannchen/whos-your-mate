@@ -140,6 +140,7 @@ const App = {
         setQuery(this.elements.passwordInput.value);
         try {
             this.showLoadingPage();
+            /** @type {import('./gameUtils.js').GameData} */
             const gameData = await fetchGameData();
             preloadImages(gameData);
             this.loadQuestion(gameData, 0);

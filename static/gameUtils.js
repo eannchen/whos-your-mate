@@ -18,6 +18,22 @@ export const sleep = ms => new Promise(resolve => setTimeout(resolve, ms));
 export let query = "?auth=";
 export const setQuery = password => { query = "?auth=" + password; };
 
+/**
+ * @typedef {Object} Question
+ * @property {string} questionText
+ * @property {string[]} choices
+ * @property {number} correctIndex
+ */
+
+/**
+ * @typedef {Object} GameData
+ * @property {Question[]} questions
+ * @property {string} endingPhoto
+ */
+
+/**
+ * @returns {Promise<GameData>}
+ */
 export const fetchGameData = async () => {
     const response = await fetch('/game-data' + query);
     if (!response.ok) throw new Error('Network response was not ok');
