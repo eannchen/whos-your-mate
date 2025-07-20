@@ -1,8 +1,14 @@
 // Utility and configuration module
+import { loadConfig } from './configLoader.js';
 
-import { WISH_LINES, LOADING_TEXTS } from './config.example.js';
-// import { WISH_LINES, LOADING_TEXTS } from './config.js';
+let WISH_LINES = [];
+let LOADING_TEXTS = [];
 
+export const initVariables = async () => {
+    const config = await loadConfig();
+    WISH_LINES = config.WISH_LINES;
+    LOADING_TEXTS = config.LOADING_TEXTS;
+};
 
 export const getRandomLoadingText = () =>
     LOADING_TEXTS[Math.floor(Math.random() * LOADING_TEXTS.length)];

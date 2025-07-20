@@ -1,11 +1,11 @@
 // Main app logic
-
-import { APP_TITLE, SPECIAL_PERSON, SPECIAL_DAY, MADE_BY } from './config.example.js';
-// import { APP_TITLE, SPECIAL_PERSON, SPECIAL_DAY, MADE_BY } from './config.js';
-
+import { loadConfig } from './configLoader.js';
 import {
-    getRandomLoadingText, getRandomWishLine, setQuery, query,
-    fetchGameData, preloadImages, sleep, startConfettiAnimation, startHeartAnimation
+    initVariables,
+    getRandomLoadingText, getRandomWishLine,
+    setQuery, query,
+    fetchGameData, preloadImages, sleep,
+    startConfettiAnimation, startHeartAnimation
 } from './variables.js';
 
 
@@ -13,7 +13,11 @@ const App = {
     elements: {},
     countdownInterval: null,
 
-    init() {
+    async init() {
+        const config = await loadConfig();
+        this.config = config;
+        await initVariables();
+
         this.cacheElements();
         this.bindEvents();
         this.initTheme();
@@ -77,21 +81,21 @@ const App = {
     },
 
     initTheme() {
-        this.elements.title.textContent = APP_TITLE;
+        this.elements.title.textContent = this.config.APP_TITLE;
 
 
         if (localStorage.getItem('theme') === 'bw') {
             this.setThemeBW();
-            this.elements.madeBy.textContent = `Made with 🖤 by ${MADE_BY}`;
+            this.elements.madeBy.textContent = `Made with 🖤 by ${this.config.MADE_BY}`;
         } else {
             this.setThemeColorful();
-            this.elements.madeBy.textContent = `Made with 💖 by ${MADE_BY}`;
+            this.elements.madeBy.textContent = `Made with 💖 by ${this.config.MADE_BY}`;
         }
     },
 
     startCountdown() {
         const update = () => {
-            const timeLeft = new Date(SPECIAL_DAY) - new Date();
+            const timeLeft = new Date(this.config.SPECIAL_DAY) - new Date();
             if (timeLeft <= 0) {
                 this.elements.countdown.classList.add('d-none');
                 this.elements.startGame.classList.remove('d-none');
@@ -102,7 +106,7 @@ const App = {
                 const minutes = Math.floor((timeLeft % (1000 * 60 * 60)) / (1000 * 60));
                 const seconds = Math.floor((timeLeft % (1000 * 60)) / 1000);
                 this.elements.countdown.textContent =
-                    `Only ${days}d, ${hours}h, ${minutes}m, and ${seconds}s until ${SPECIAL_PERSON}'s special day!`;
+                    `Only ${days}d, ${hours}h, ${minutes}m, and ${seconds}s until ${this.config.SPECIAL_PERSON}'s special day!`;
             }
         };
         this.countdownInterval = setInterval(update, 1000);
@@ -196,7 +200,7 @@ const App = {
     },
 
     pageEnd2PageHome() {
-        this.elements.title.textContent = APP_TITLE;
+        this.elements.title.textContent = this.config.APP_TITLE;
         this.elements.endPage.classList.add('d-none');
         this.elements.homePage.classList.remove('d-none');
     }
