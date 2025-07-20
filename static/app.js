@@ -69,6 +69,7 @@ const App = {
         document.body.classList.add('theme-bw');
         this.elements.themeBWBtn.classList.add('active');
         this.elements.themeColorfulBtn.classList.remove('active');
+        this.elements.madeBy.textContent = `Made with 🖤 by ${this.config.MADE_BY}`;
         localStorage.setItem('theme', 'bw');
     },
 
@@ -76,19 +77,17 @@ const App = {
         document.body.classList.remove('theme-bw');
         this.elements.themeColorfulBtn.classList.add('active');
         this.elements.themeBWBtn.classList.remove('active');
+        this.elements.madeBy.textContent = `Made with 💖 by ${this.config.MADE_BY}`;
         localStorage.setItem('theme', 'colorful');
     },
 
     initTheme() {
         this.elements.title.textContent = this.config.APP_TITLE;
 
-
         if (localStorage.getItem('theme') === 'bw') {
             this.setThemeBW();
-            this.elements.madeBy.textContent = `Made with 🖤 by ${this.config.MADE_BY}`;
         } else {
             this.setThemeColorful();
-            this.elements.madeBy.textContent = `Made with 💖 by ${this.config.MADE_BY}`;
         }
     },
 
