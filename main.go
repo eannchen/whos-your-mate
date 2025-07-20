@@ -47,7 +47,6 @@ func corsMiddleware(next http.Handler) http.Handler {
 			return
 		}
 		if r.URL.Query().Get("auth") != config.Env().APIAuth {
-			fmt.Println(config.Env().APIAuth)
 			http.Error(w, "Unauthorized", http.StatusUnauthorized)
 			return
 		}
