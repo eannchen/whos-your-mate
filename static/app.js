@@ -99,12 +99,11 @@ const App = {
                 this.elements.startGame.classList.remove('d-none');
                 clearInterval(this.countdownInterval);
             } else {
-                const days = Math.floor(timeLeft / (1000 * 60 * 60 * 24));
-                const hours = Math.floor((timeLeft % (1000 * 60 * 60 * 24)) / (1000 * 60 * 60));
+                const hours = Math.floor(timeLeft / (1000 * 60 * 60));
                 const minutes = Math.floor((timeLeft % (1000 * 60 * 60)) / (1000 * 60));
                 const seconds = Math.floor((timeLeft % (1000 * 60)) / 1000);
                 this.elements.countdown.textContent =
-                    `Only ${days}d, ${hours}h, ${minutes}m, and ${seconds}s until ${this.config.SPECIAL_PERSON}'s special day!`;
+                    `Only ${hours}h, ${minutes}m, and ${seconds}s until ${this.config.SPECIAL_PERSON}'s special day!`;
             }
         };
         this.countdownInterval = setInterval(update, 1000);
