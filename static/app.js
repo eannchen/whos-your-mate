@@ -1,12 +1,12 @@
 // Main app logic
 import { loadConfig } from './configLoader.js';
 import {
-    initVariables,
+    initGameUtils,
     getRandomLoadingText, getRandomWishLine,
     setQuery, query,
     fetchGameData, preloadImages, sleep,
     startConfettiAnimation, startHeartAnimation
-} from './variables.js';
+} from './gameUtils.js';
 
 
 const App = {
@@ -14,9 +14,8 @@ const App = {
     countdownInterval: null,
 
     async init() {
-        const config = await loadConfig();
-        this.config = config;
-        await initVariables();
+        this.config = await loadConfig();
+        await initGameUtils();
 
         this.cacheElements();
         this.bindEvents();
