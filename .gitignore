@@ -51,8 +51,7 @@ coverage/
 
 # Environment variables
 .env
-.env.*
-env.*
+env.sh
 config.js
 
 
