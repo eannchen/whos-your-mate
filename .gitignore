@@ -53,6 +53,7 @@ coverage/
 .env
 .env.*
 env.*
+config.js
 
 
 # Private file
