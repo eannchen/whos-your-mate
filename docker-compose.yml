@@ -8,6 +8,8 @@ services:
     restart: always
     ports:
       - '80:80'
+    environment:
+      API_AUTH: "${API_AUTH}"
     logging:
       driver: 'json-file'
       options:

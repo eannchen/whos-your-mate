@@ -9,7 +9,7 @@ SSH_DEPLOY_PATH=${USER_API_ADDRESS}:${DEPLOY_PATH}
 run:
 	source env.sh && go run main.go
 
-deploy: build-image rsync-img2server rsync-dcompose2server clean
+deploy: build-image rsync-img2server rsync-env2server rsync-dcompose2server clean
 
 build-image:
 	set -e; docker build --platform="linux/amd64" -t ${APP}:${APP_TAG} -f dockerfile .
@@ -17,6 +17,9 @@ build-image:
 
 rsync-img2server:
 	set -e; rsync -avzh --chmod=F700 $(APP).tar ${SSH_DEPLOY_PATH}; ssh ${USER_API_ADDRESS} 'docker load -i ${DEPLOY_PATH}/$(APP).tar; rm ${DEPLOY_PATH}/$(APP).tar'
+
+rsync-env2server:
+	set -e; rsync -avzh --chmod=F600 .env ${SSH_DEPLOY_PATH}/
 
 rsync-dcompose2server:
 	set -e; rsync -avzh --chmod=F600 docker-compose.yml ${SSH_DEPLOY_PATH}/
