@@ -30,7 +30,7 @@ func Env() *env {
 			fmt.Println("Error loading .env file:", err)
 		}
 		envInstance = &env{
-			Port:          80,
+			Port:          8080,
 			APIAuth:       os.Getenv("API_AUTH"),
 			StaticDir:     "./static",
 			ImagesDir:     "./images",
