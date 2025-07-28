@@ -1,7 +1,6 @@
 # Who's Your Mate
 
-A small, fun web project built as a birthday gift, using Go for the backend and Vanilla JS (ES6) for the frontend. No frameworks are used.
-
+A small, humored web project built as a birthday gift, using Go, Vanilla JS (ES6), and Docker.  No frameworks are used.
 
 ## Features
 - Lightweight and easy to run
