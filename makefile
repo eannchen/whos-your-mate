@@ -27,3 +27,13 @@ rsync-dcompose2server:
 clean:
 	rm -rf ${APP}.tar
 	docker rmi ${APP}:${APP_TAG}
+
+# Test commands
+test:
+	go test ./...
+
+test-verbose:
+	go test -v ./...
+
+test-coverage:
+	go test -cover ./...
