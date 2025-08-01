@@ -1,100 +1,149 @@
 # Who's Your Mate
 
-A small, humored web project built as a birthday gift, using Go, Vanilla JS (ES6), and Docker.  No frameworks are used.
+A fun, interactive web game built as a birthday gift using Go, Vanilla JavaScript (ES6), and Docker. This project presents users with image comparison challenges in a lightweight, containerized application.
 
-## Features
-- Lightweight and easy to run
-- No frontend frameworks—just Vanilla JS (ES6)
-- Simple Go backend
-- Simple containerized deployment via Docker
+## Game Demo
+
+> *[Demo will be added here]* 🚧
 
 
-## Project Structure
+## Game Mechanics
 
-```txt
-.
-├── config/             # Go config files
-├── images/             # Static images
-├── static/             # Frontend JS, CSS, HTML
-├── main.go             # Go backend entry point
-├── dockerfile          # Docker build file
-├── docker-compose.yml  # For running application on your host
-├── makefile            # Scripts for fast deployment
-└── env.example.sh      # Example environment variables
-```
-
+1. **Question Generation**: The server randomly selects images from your configured directories
+2. **Image Comparison**: Players see two images side by side
+3. **Choice Making**: Players select which image matches the game's criteria
+4. **Celebration**: A random ending image is shown upon completion
 
 ## Getting Started
 
 ### Prerequisites
-- Go 1.18+ installed
-- Docker installed on local and host (optional, for containerized deployment)
 
-### Setup
+- **Go 1.18+** - [Download here](https://golang.org/dl/)
+- **Docker** (optional, for containerized deployment) - [Download here](https://www.docker.com/products/docker-desktop/)
+
+### Quick Start
 
 1. **Clone the repository:**
-   ```sh
+   ```bash
    git clone https://github.com/yourusername/whos-your-mate.git
-   cd esl-toolkit
+   cd whos-your-mate
    ```
 
-2. **Set up your environment variables:**
-   - Setup Go server env
+2. **Set up environment variables:**
+   ```bash
+   # Copy and edit the environment template
+   cp env.example.sh .env
+   # Edit .env with your configuration
+   ```
 
-     Which is used for the app simple authentication.
-     ```sh
-     cp .env.example .env
-     # Edit .env to set your Go server environment variables
-     ```
-   - Setup JavaScript env
+3. **Configure frontend settings:**
+   ```bash
+   # Copy and edit the frontend config
+   cp static/config.example.js static/config.js
+   # Edit config.js with your game settings
+   ```
 
-     Which is used for texts and display on the frontend.
-     ```sh
-     cp static/config.example.js static/config.js
-     # Edit config.js to set your JavaScript client environment variables
-     ```
+4. **Add your game images:**
+   ```bash
+   # Add images to these directories:
+   # - images/choice_a/ (correct answers)
+   # - images/choice_b/ (wrong answers)
+   # - images/ending/ (celebration images)
+   ```
 
-3. **Add Photos**
-
-    Add images to folders `/images/choice_a`, `/images/choice_b`, and `/images/ending`. Which is used for display on the frontend.
-
-4. **Install Go dependencies:**
-   ```sh
+5. **Install dependencies:**
+   ```bash
    go mod tidy
    ```
 
-5. **Run the app locally**
-   ```sh
+6. **Run the application:**
+   ```bash
    go run main.go
    ```
 
-6. **Access the app**
+7. **Access the game:**
+   Open your browser and navigate to [http://localhost:8080](http://localhost:8080)
 
-   Open your browser and go to http://localhost:8080.
+### Configuration
+
+#### Backend Configuration (`.env`)
+```bash
+# API Authentication
+API_AUTH=your-secret-key-here
+```
+
+#### Frontend Configuration (`static/config.js`)
+```javascript
+export const APP_TITLE = "<APP_TITLE>";
+export const MADE_BY = "<MADE_BY>";
+export const SPECIAL_PERSON = "<SPECIAL_PERSON>";
+export const SPECIAL_DAY = "2000-10-10T10:10:10";
+export const WISH_LINES = [
+    "Example wish line 1",
+    "Example wish line 2",
+    "Example wish line 3",
+];
+
+export const LOADING_TEXTS = [
+    "Example loading text 1",
+    "Example loading text 2",
+    "Example loading text 3"
+];
+```
 
 
-### Deployment
+## Docker Deployment
 
-You can deploy this app to any server that supports Docker.
+1. **Set up your host server:**
+   ```bash
+   cp env.example.sh env.sh
+   # Edit env.sh with your production settings
+   ```
 
-1. **Set up your host server variables:**
-    ```sh
-     cp env.example.sh env.sh
-     # Edit env.sh to set your host information
-    ```
+2. **Deploy using Makefile:**
+   ```bash
+   make deploy
+   ```
 
-2. **Containerized the app and deploy**
-    ```sh
-     make deploy
-    ```
+3. **Start the application on your server:**
+   ```bash
+   docker-compose up -d
+   ```
 
-3. **Run the app on the host**
+## Customization
 
-    On your host server, use docker compose to run the application.
-    ```sh
-    docker compose up -d
-    ```
+1. **Backend Changes**: Modify `main.go` and add tests in `main_test.go`
+2. **Frontend Changes**: Update files in the `static/` directory
+3. **Images**: Replace images in the `images/` directories
+
+
+## Project Structure
+
+```
+whos-your-mate/
+├── config/                 # Configuration management
+│   ├── config.go          # Environment and app config
+│   └── config_test.go     # Configuration tests
+├── images/                 # Game images
+│   ├── choice_a/          # Correct answer images
+│   ├── choice_b/          # Wrong answer images
+│   └── ending/            # Ending celebration images
+├── static/                 # Frontend assets
+│   ├── index.html         # Main game interface
+│   ├── app.js             # Game logic
+│   ├── styles.css         # Styling
+│   ├── config.js          # Frontend configuration
+│   └── gameUtils.js       # Game utilities
+├── main.go                # Go server entry point
+├── main_test.go           # Main package tests
+├── dockerfile             # Docker build configuration
+├── docker-compose.yml     # Container orchestration
+├── makefile               # Build and deployment scripts
+├── go.mod                 # Go module dependencies
+├── env.example.sh         # Environment variables template
+└── README.md              # This file
+```
 
 ## License
-This project is a personal gift and learning project.
-Feel free to use or adapt it for your own fun projects!
+
+This project is a personal gift and learning project. Feel free to use or adapt it for your own fun projects!
