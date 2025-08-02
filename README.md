@@ -10,11 +10,12 @@ A fun, interactive web game built as a birthday gift using Go, Vanilla JavaScrip
 
 ## Game Mechanics
 
-1. **Question Generation**: The server randomly selects images from your configured directories
-2. **Image Comparison**: Players see two images side by side
-3. **Choice Making**: Players select which image matches the game's criteria
-4. **Loading Experience**: Custom messages are displayed while the game loads
-5. **Celebration**: A random ending image and personalized message are shown upon completion
+1. **Authentication**: The game requires a password (set via `API_AUTH`) to access the game data
+2. **Question Generation**: The server randomly selects images from your configured directories
+3. **Image Comparison**: Players see two images side by side
+4. **Choice Making**: Players select which image matches the game's criteria
+5. **Loading Experience**: Custom messages are displayed while the game loads
+6. **Celebration**: A random ending image and personalized message are shown upon completion
 
 ## Getting Started
 
@@ -36,6 +37,7 @@ A fun, interactive web game built as a birthday gift using Go, Vanilla JavaScrip
    # Copy and edit the environment template
    cp env.example.sh .env
    # Edit .env with your configuration
+   # Set a strong password for API_AUTH to secure your game
    ```
 
 3. **Configure frontend settings:**
@@ -70,7 +72,7 @@ A fun, interactive web game built as a birthday gift using Go, Vanilla JavaScrip
 
 #### Backend Configuration (`.env`)
 ```bash
-# API Authentication
+# API Authentication - This password protects your game data
 API_AUTH=your-secret-key-here
 ```
 
