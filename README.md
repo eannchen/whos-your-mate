@@ -4,8 +4,7 @@ A fun, interactive web game built as a birthday gift using Go, Vanilla JavaScrip
 
 ## Game Demo
 
-> *[Demo will be added here]* 🚧
-
+![Game Demo](documents/demo.gif)
 
 ## Game Mechanics
 
@@ -94,6 +93,8 @@ export const LOADING_TEXTS = [
 
 ## Docker Deployment
 
+The deployment requires Docker installed on your local and host server.
+
 1. **Set up your host server:**
    ```bash
    cp env.example.sh env.sh
@@ -121,24 +122,25 @@ export const LOADING_TEXTS = [
 
 ```
 whos-your-mate/
-├── config/                 # Configuration management
+├── config/                # Configuration management
 │   ├── config.go          # Environment and app config
 │   └── config_test.go     # Configuration tests
-├── images/                 # Game images
+├── images/                # Game images
 │   ├── choice_a/          # Correct answer images
 │   ├── choice_b/          # Wrong answer images
 │   └── ending/            # Ending celebration images
-├── static/                 # Frontend assets
+├── static/                # Frontend assets
 │   ├── index.html         # Main game interface
 │   ├── app.js             # Game logic
 │   ├── styles.css         # Styling
-│   ├── config.js          # Frontend configuration
+│   ├── config.example.js  # Frontend configuration template
+│   ├── configLoader.js    # Frontend configuration loader
 │   └── gameUtils.js       # Game utilities
 ├── main.go                # Go server entry point
 ├── main_test.go           # Main package tests
 ├── dockerfile             # Docker build configuration
 ├── docker-compose.yml     # Container orchestration
-├── makefile               # Build and deployment scripts
+├── makefile               # Test and deployment scripts
 ├── go.mod                 # Go module dependencies
 ├── env.example.sh         # Environment variables template
 └── README.md              # This file
