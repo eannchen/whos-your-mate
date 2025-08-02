@@ -13,7 +13,8 @@ A fun, interactive web game built as a birthday gift using Go, Vanilla JavaScrip
 1. **Question Generation**: The server randomly selects images from your configured directories
 2. **Image Comparison**: Players see two images side by side
 3. **Choice Making**: Players select which image matches the game's criteria
-4. **Celebration**: A random ending image is shown upon completion
+4. **Loading Experience**: Custom messages are displayed while the game loads
+5. **Celebration**: A random ending image and personalized message are shown upon completion
 
 ## Getting Started
 
