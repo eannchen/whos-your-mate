@@ -8,7 +8,7 @@ A fun, interactive web game built as a birthday gift using Go, Vanilla JavaScrip
   <img src="documents/demo.gif" alt="Game Demo">
 </div>
 
-## Game Mechanics
+## Game Features
 
 1. **Authentication**: The game requires a password (set via `API_AUTH`) to access the game data
 2. **Question Generation**: The server randomly selects images from your configured directories
