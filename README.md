@@ -8,14 +8,13 @@ A fun, interactive web game built as a birthday gift using Go, Vanilla JavaScrip
   <img src="documents/demo.gif" alt="Game Demo">
 </div>
 
-## Game Features
+## Game Mechanisms
 
 1. **Authentication**: The game requires a password (set via `API_AUTH`) to access the game data
-2. **Question Generation**: The server randomly selects images from your configured directories
-3. **Image Comparison**: Players see two images side by side
-4. **Choice Making**: Players select which image matches the game's criteria
-5. **Loading Experience**: Custom messages are displayed while the game loads
-6. **Celebration**: A random ending image and personalized message are shown upon completion
+2. **Loading Experience**: Custom messages are displayed while the game loads
+3. **Question Generation**: The server randomly selects images from your configured directories
+4. **Image Comparison**: Players see two images side by side and select which image matches the game's criteria
+5. **Celebration**: A random ending image and personalized message are shown upon completion
 
 ## Getting Started
 
