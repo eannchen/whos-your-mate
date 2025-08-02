@@ -4,7 +4,9 @@ A fun, interactive web game built as a birthday gift using Go, Vanilla JavaScrip
 
 ## Game Demo
 
-![Game Demo](documents/demo.gif)
+<div align="center">
+  <img src="documents/demo.gif" alt="Game Demo">
+</div>
 
 ## Game Mechanics
 
@@ -77,18 +79,27 @@ export const APP_TITLE = "<APP_TITLE>";
 export const MADE_BY = "<MADE_BY>";
 export const SPECIAL_PERSON = "<SPECIAL_PERSON>";
 export const SPECIAL_DAY = "2000-10-10T10:10:10";
+
+// Customize the ending celebration messages
 export const WISH_LINES = [
     "Example wish line 1",
     "Example wish line 2",
     "Example wish line 3",
 ];
 
+// Customize the loading screen messages
 export const LOADING_TEXTS = [
     "Example loading text 1",
     "Example loading text 2",
     "Example loading text 3"
 ];
 ```
+
+**💡 Personalization Tips:**
+- **`WISH_LINES`**: Add your own heartfelt messages that will appear at the end of the game
+- **`LOADING_TEXTS`**: Create fun, engaging messages that show while the game loads
+- You can add as many lines as you want - the game will randomly select from these arrays
+- Make the messages personal and meaningful for your special person!
 
 
 ## Docker Deployment
